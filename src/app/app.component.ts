@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   counter = 0;
   incrementBy = 0;
   cost = {
-    first: 0,
+    first: 1,
     second: 20,
     third: 400,
     fourth: 8000,
@@ -31,16 +31,17 @@ export class AppComponent implements OnInit {
     this.increaseCost(cost);
   }
 
-increaseIncrement(value: number): void {
-  this.incrementBy += value;
-}
+  increaseIncrement(value: number): void {
+    this.incrementBy += value;
+  }
 
   subtractFromBalance(cost: number): void {
     this.counter -= cost;
   }
 
-  increaseCost(cost: number) {
+  increaseCost(cost: number): void {
     const stageToIncrease = Object.keys(this.cost).find(key => this.cost[key] === cost);
     this.cost[stageToIncrease] = this.cost[stageToIncrease] * 1.3;
   }
+
 }
