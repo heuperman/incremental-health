@@ -7,7 +7,7 @@ import {CountService} from '../count.service';
   styleUrls: ['./get-button.component.css']
 })
 export class GetButtonComponent implements OnInit {
-  constructor(private countService: CountService) { }
+  constructor(public countService: CountService) { }
 
   ngOnInit() {
   }
