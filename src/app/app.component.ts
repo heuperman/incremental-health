@@ -12,7 +12,6 @@ import {UpgradeService} from './upgrade.service';
 })
 export class AppComponent implements OnInit {
   factoriesPurchased = [0];
-  title = 'incremental';
   factories: Factory[];
   upgrades: Upgrade[];
 

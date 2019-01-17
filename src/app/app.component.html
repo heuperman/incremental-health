@@ -1,8 +1,4 @@
-<mat-toolbar>
-  <span>{{title}}</span>
-  <span class="spacer"></span>
-  <span>score: {{countService.getCount() | number: '1.0-0'}}</span>
-</mat-toolbar>
+<app-title-bar></app-title-bar>
 <app-get-button></app-get-button>
 <mat-list class="factoriesList">
   <mat-list-item  *ngFor="let factory of factories">

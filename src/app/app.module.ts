@@ -11,11 +11,13 @@ import {
 } from '@angular/material';
 import { GetButtonComponent } from './get-button/get-button.component';
 import { CountService } from './count.service';
+import { TitleBarComponent } from './title-bar/title-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GetButtonComponent
+    GetButtonComponent,
+    TitleBarComponent
   ],
   imports: [
     BrowserModule,
