@@ -9,10 +9,13 @@ import {
   MatListModule,
   MatToolbarModule
 } from '@angular/material';
+import { GetButtonComponent } from './get-button/get-button.component';
+import { CountService } from './count.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GetButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,9 @@ import {
     MatGridListModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    CountService
+  ],
   bootstrap: [AppComponent]
 })
 

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CountService} from './count.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import {Component, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
   factoriesPurchased = [0];
   title = 'incremental';
-  counter = 0;
+  count: number = this.countService.getCount();
+
   factories = [
     {title: 'first', production: 1, price: 1, purchased: 0},
     {title: 'second', production: 10, price: 20, purchased: 0},
@@ -29,18 +31,17 @@ export class AppComponent implements OnInit {
     {title: 'double fifth', target: 4, multiplier: 2, price: 160000000, purchased: false, requiredLevel: 25}
   ];
 
+  constructor(private countService: CountService) {}
+
   ngOnInit() {
-    setInterval(() => this.counter += (this.getProduction() / 10), 100);
+    this.countService.startProduction();
   }
 
   makePurchase(production: number, price: number) {
-    this.subtractFromBalance(price);
+    this.countService.subtractFromCount(price);
     this.increasePrice(production);
     this.recordPurchase(production);
-  }
-
-  subtractFromBalance(price: number): void {
-    this.counter -= price;
+    this.countService.setProduction(this.getProduction());
   }
 
   increasePrice(production: number): void {
@@ -58,9 +59,10 @@ export class AppComponent implements OnInit {
   }
 
   upgradeFactory(target: number, price: number, multiplier: number) {
-    this.subtractFromBalance(price);
+    this.countService.subtractFromCount(price);
     this.multiplyProduction(target, multiplier);
     this.setUpgradeToPurchased(target);
+    this.countService.setProduction(this.getProduction());
   }
 
   multiplyProduction(target: number, multiplier: number) {

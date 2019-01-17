@@ -7,12 +7,6 @@ button {
   flex: 1 1 auto;
 }
 
-.getButton {
-  float: left;
-  width: 200px;
-  margin: 30px 24px 22px 20px;
-}
-
 mat-list {
   margin-top: 16px;
   align-content: center;
