@@ -13,13 +13,12 @@ import {Upgrade} from '../upgrade';
 export class UpgradesListComponent implements OnInit {
   factories: Factory[];
   upgrades: Upgrade[];
-  factoriesPurchased = [0];
 
   constructor(
     public countService: CountService,
     public factoryService: FactoryService,
     public upgradeService: UpgradeService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
@@ -30,20 +29,12 @@ export class UpgradesListComponent implements OnInit {
     this.countService.subtractFromCount(price);
     this.factoryService.multiplyProduction(target, multiplier);
     this.setUpgradeToPurchased(title);
-    this.countService.setProduction(this.getProduction());
+    this.countService.updateProduction();
   }
 
   setUpgradeToPurchased(title: string) {
     const targetUpgrade = this.upgrades.find(upgrade => upgrade.title === title);
     targetUpgrade.purchased = true;
-  }
-
-  getProduction(): number {
-    let totalProduction = 0;
-    this.factoriesPurchased.forEach((purchased, index) => {
-      totalProduction += purchased * this.factories[index].production;
-    });
-    return totalProduction;
   }
 
 }

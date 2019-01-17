@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {FactoryService} from './factory.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,11 +7,8 @@ import { Injectable } from '@angular/core';
 export class CountService {
   private count = 0;
   private production = 0;
-  constructor() { }
-
-  startProduction() {
-    setInterval(() => this.count += (this.production / 10), 100);
-  }
+  private intervalId: number;
+  constructor(public factoryService: FactoryService) { }
 
   getCount() {
     return this.count;
@@ -20,12 +18,22 @@ export class CountService {
     this.count -= price;
   }
 
-  adToCount(amount: number) {
+  addToCount(amount: number) {
     this.count += amount;
   }
 
-  setProduction(value: number) {
-    this.production = value;
+  updateProduction() {
+    clearInterval(this.intervalId);
+    this.production = this.getProduction();
+    this.intervalId = setInterval(() => this.count += (this.production / 10), 100);
+  }
+
+  getProduction(): number {
+    let totalProduction = 0;
+    for (const factory of this.factoryService.getFactories()) {
+      totalProduction += factory.purchased * factory.production;
+    }
+    return totalProduction;
   }
 }
 

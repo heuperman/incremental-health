@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Factory} from './factory';
+import { Factory } from './factory';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,11 @@ export class FactoryService {
 
   multiplyProduction(target: string, multiplier: number): void {
     this.getFactory(target).production *= multiplier;
+  }
+
+  recordPurchase(target: string): void {
+    this.increasePrice(target);
+    this.getFactory(target).purchased++;
   }
 
 }

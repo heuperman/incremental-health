@@ -10,7 +10,6 @@ import {CountService} from '../count.service';
 })
 export class FactoriesListComponent implements OnInit {
   factories: Factory[];
-  factoriesPurchased = [0];
 
   constructor(
     public factoryService: FactoryService,
@@ -23,30 +22,8 @@ export class FactoriesListComponent implements OnInit {
 
   makePurchase(title: string, production: number, price: number) {
     this.countService.subtractFromCount(price);
-    this.factoryService.increasePrice(title);
-    this.recordPurchase(production);
-    this.countService.setProduction(this.getProduction());
-  }
-
-  recordPurchase(production: number) {
-    const stageToIncrease = this.factories.findIndex(factory => factory.production === production);
-    if (this.factoriesPurchased[stageToIncrease]) {
-      this.factoriesPurchased[stageToIncrease] += 1;
-    } else {
-      this.factoriesPurchased[stageToIncrease] = 1;
-    }
-  }
-
-  indexOfFactory(title: string): number {
-    return this.factories.findIndex(factory => factory.title === title);
-  }
-
-  getProduction(): number {
-    let totalProduction = 0;
-    this.factoriesPurchased.forEach((purchased, index) => {
-      totalProduction += purchased * this.factories[index].production;
-    });
-    return totalProduction;
+    this.factoryService.recordPurchase(title);
+    this.countService.updateProduction();
   }
 
 }
