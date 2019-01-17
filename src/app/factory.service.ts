@@ -19,4 +19,17 @@ export class FactoryService {
   getFactories(): Factory[] {
     return this.factories;
   }
+
+  getFactory(target: string): Factory {
+    return this.factories.find(factory => factory.title === target);
+  }
+
+  increasePrice(target: string): void {
+    this.getFactory(target).price *= 1.3;
+  }
+
+  multiplyProduction(target: string, multiplier: number): void {
+    this.getFactory(target).production *= multiplier;
+  }
+
 }

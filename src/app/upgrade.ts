@@ -1,6 +1,6 @@
 export class Upgrade {
   title: string;
-  target: number;
+  target: string;
   multiplier: number;
   price: number;
   purchased: boolean;

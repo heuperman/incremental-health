@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
   constructor(
     public countService: CountService,
     public factoryService: FactoryService,
-    public upgradeService: UpgradeService) {}
+    public upgradeService: UpgradeService
+  ) {}
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
@@ -27,40 +28,23 @@ export class AppComponent implements OnInit {
     this.countService.startProduction();
   }
 
-  makePurchase(production: number, price: number) {
+  makePurchase(title: string, production: number, price: number) {
     this.countService.subtractFromCount(price);
-    this.increasePrice(production);
+    this.factoryService.increasePrice(title);
     this.recordPurchase(production);
     this.countService.setProduction(this.getProduction());
   }
 
-  increasePrice(production: number): void {
-    const stageToIncrease = this.factories.findIndex(factory => factory.production === production);
-    this.factories[stageToIncrease].price *= 1.3;
-  }
-
-  recordPurchase(production: number) {
-    const stageToIncrease = this.factories.findIndex(factory => factory.production === production);
-    if (this.factoriesPurchased[stageToIncrease]) {
-      this.factoriesPurchased[stageToIncrease] += 1;
-    } else {
-      this.factoriesPurchased[stageToIncrease] = 1;
-    }
-  }
-
-  upgradeFactory(target: number, price: number, multiplier: number) {
+  upgradeFactory(title: string, target: string, price: number, multiplier: number) {
     this.countService.subtractFromCount(price);
-    this.multiplyProduction(target, multiplier);
-    this.setUpgradeToPurchased(target);
+    this.factoryService.multiplyProduction(target, multiplier);
+    this.setUpgradeToPurchased(title);
     this.countService.setProduction(this.getProduction());
   }
 
-  multiplyProduction(target: number, multiplier: number) {
-    this.factories[target].production *= multiplier;
-  }
-
-  setUpgradeToPurchased(target: number) {
-    this.upgrades[target].purchased = true;
+  setUpgradeToPurchased(title: string) {
+    const targetUpgrade = this.upgrades.find(upgrade => upgrade.title === title);
+    targetUpgrade.purchased = true;
   }
 
   getProduction(): number {
@@ -73,6 +57,15 @@ export class AppComponent implements OnInit {
 
   indexOfFactory(title: string): number {
     return this.factories.findIndex(factory => factory.title === title);
+  }
+
+  recordPurchase(production: number) {
+    const stageToIncrease = this.factories.findIndex(factory => factory.production === production);
+    if (this.factoriesPurchased[stageToIncrease]) {
+      this.factoriesPurchased[stageToIncrease] += 1;
+    } else {
+      this.factoriesPurchased[stageToIncrease] = 1;
+    }
   }
 
 }

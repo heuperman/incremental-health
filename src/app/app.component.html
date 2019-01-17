@@ -7,7 +7,7 @@
 <mat-list class="factoriesList">
   <mat-list-item  *ngFor="let factory of factories">
     <button mat-flat-button color="primary" *ngIf="countService.getCount()>=factory.price"
-            (click)="makePurchase(factory.production, factory.price)">
+            (click)="makePurchase(factory.title, factory.production, factory.price)">
       {{factoriesPurchased[indexOfFactory(factory.title)]}} {{factory.title}} - £{{factory.price | number: '1.2-2'}}
     </button>
   </mat-list-item>
@@ -17,7 +17,7 @@
   <mat-list-item  *ngFor="let upgrade of upgrades">
     <button mat-stroked-button color="primary"
             *ngIf="upgrade.purchased===false && factoriesPurchased[upgrade.target] >= upgrade.requiredLevel && countService.getCount()>=upgrade.price"
-            (click)="upgradeFactory(upgrade.target, upgrade.price, upgrade.multiplier)">
+            (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
       {{upgrade.title}} - £{{upgrade.price | number: '1.2-2'}}
     </button>
   </mat-list-item>
