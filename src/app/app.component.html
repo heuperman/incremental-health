@@ -1,16 +1,7 @@
 <app-title-bar></app-title-bar>
 <app-get-button></app-get-button>
 <app-factories-list></app-factories-list>
-
-<mat-list class="upgradesList">
-  <mat-list-item  *ngFor="let upgrade of upgrades">
-    <button mat-stroked-button color="primary"
-            *ngIf="upgrade.purchased===false && factoriesPurchased[upgrade.target] >= upgrade.requiredLevel && countService.getCount()>=upgrade.price"
-            (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
-      {{upgrade.title}} - £{{upgrade.price | number: '1.2-2'}}
-    </button>
-  </mat-list-item>
-</mat-list>
+<app-upgrades-list></app-upgrades-list>
 
 
 
