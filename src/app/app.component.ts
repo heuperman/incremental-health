@@ -8,40 +8,40 @@ import {Component, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'incremental';
   counter = 0;
-  incrementBy = 0;
-  cost = {
-    first: 1,
-    second: 20,
-    third: 400,
-    fourth: 8000,
-    fifth: 160000
-  };
+  totalProduction = 0;
+  factories = [
+    {title: 'first', production: 1, price: 1},
+    {title: 'second', production: 10, price: 20},
+    {title: 'third', production: 100, price: 400},
+    {title: 'fourth', production: 1000, price: 8000},
+    {title: 'fifth', production: 10000, price: 160000}
+    ];
 
   ngOnInit() {
     this.increment();
   }
 
   increment(): void {
-    setInterval(() => this.counter += (this.incrementBy / 10), 100);
+    setInterval(() => this.counter += (this.totalProduction / 10), 100);
   }
 
-  makePurchase(value: number, cost: number) {
-    this.increaseIncrement(value);
-    this.subtractFromBalance(cost);
-    this.increaseCost(cost);
+  makePurchase(production: number, price: number) {
+    this.increaseProductionRate(production);
+    this.subtractFromBalance(price);
+    this.increasePrice(production);
   }
 
-  increaseIncrement(value: number): void {
-    this.incrementBy += value;
+  increaseProductionRate(production: number): void {
+    this.totalProduction += production;
   }
 
-  subtractFromBalance(cost: number): void {
-    this.counter -= cost;
+  subtractFromBalance(price: number): void {
+    this.counter -= price;
   }
 
-  increaseCost(cost: number): void {
-    const stageToIncrease = Object.keys(this.cost).find(key => this.cost[key] === cost);
-    this.cost[stageToIncrease] = this.cost[stageToIncrease] * 1.3;
+  increasePrice(production: number): void {
+    const stageToIncrease = this.factories.findIndex(factory => factory.production === production);
+    this.factories[stageToIncrease].price *= 1.3;
   }
 
 }

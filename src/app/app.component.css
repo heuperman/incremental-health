@@ -1,20 +1,13 @@
-mat-card {
-  max-width: 20%;
-  height: 20px;
-  margin: 10px;
-}
-
 button {
-  display: block;
   width: 200px;
   margin: 10px;
-  align-content: center;
-}
-
-#flexbox {
-  display: flex;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.getButton {
+  margin-top: 30px;
+  margin-left: 26px;
 }

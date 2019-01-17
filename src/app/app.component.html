@@ -3,16 +3,18 @@
   <span class="spacer"></span>
   <span>score: {{counter | number: '1.0-0'}}</span>
 </mat-toolbar>
-<div id="flexbox">
-  <div>
-    <button mat-button color="accent" (click)="counter=counter+1">get</button>
-    <button mat-button color="primary" *ngIf="counter>=cost.first" (click)="makePurchase(1, cost.first)">first</button>
-    <button mat-button color="primary" *ngIf="counter>=cost.second" (click)="makePurchase(10, cost.second)">second</button>
-    <button mat-button color="primary" *ngIf="counter>=cost.third" (click)="makePurchase(100, cost.third)">third</button>
-    <button mat-button color="primary" *ngIf="counter>=cost.fourth" (click)="makePurchase(1000, cost.fourth)">fourth</button>
-    <button mat-button color="primary" *ngIf="counter>=cost.fifth" (click)="makePurchase(10000, cost.fifth)">fifth</button>
-  </div>
-</div>
+
+<button class="getButton" mat-flat-button color="accent" (click)="counter=counter+1">get</button>
+
+<mat-list>
+  <mat-list-item  *ngFor="let factory of factories">
+    <button mat-flat-button color="primary" *ngIf="counter>=factory.price"
+            (click)="makePurchase(factory.production, factory.price)">{{factory.title}} - £{{factory.price | number: '1.2-2'}}</button>
+  </mat-list-item>
+</mat-list>
+
+
+
 
 
 
