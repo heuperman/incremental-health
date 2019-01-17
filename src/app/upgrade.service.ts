@@ -19,4 +19,13 @@ export class UpgradeService {
   getUpgrades(): Upgrade[] {
     return this.upgrades;
   }
+
+  getUpgrade(title: string): Upgrade {
+    return this.upgrades.find(upgrade => upgrade.title === title);
+  }
+
+  setUpgradeToPurchased(title: string): void {
+    this.getUpgrade(title).purchased = true;
+  }
+
 }
