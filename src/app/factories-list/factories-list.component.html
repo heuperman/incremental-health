@@ -1,0 +1,8 @@
+<mat-list class="factoriesList">
+  <mat-list-item  *ngFor="let factory of factories">
+    <button mat-flat-button color="primary" *ngIf="countService.getCount()>=factory.price"
+            (click)="makePurchase(factory.title, factory.production, factory.price)">
+      {{factoriesPurchased[indexOfFactory(factory.title)]}} {{factory.title}} - £{{factory.price | number: '1.2-2'}}
+    </button>
+  </mat-list-item>
+</mat-list>
