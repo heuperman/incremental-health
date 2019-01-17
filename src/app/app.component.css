@@ -8,6 +8,14 @@ button {
 }
 
 .getButton {
-  margin-top: 30px;
-  margin-left: 26px;
+  float: left;
+  width: 200px;
+  margin: 30px 24px 22px 20px;
+}
+
+mat-list {
+  margin-top: 16px;
+  align-content: center;
+  width: 220px;
+  float:left;
 }
