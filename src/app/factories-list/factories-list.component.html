@@ -1,6 +1,8 @@
 <mat-list class="factoriesList">
   <mat-list-item  *ngFor="let factory of factories">
-    <button mat-flat-button color="primary" *ngIf="countService.getCount()>=factory.price"
+    <button mat-flat-button color="primary"
+            *ngIf="stageUnlocked(factory.title)"
+            [disabled]="factory.price>countService.getCount()"
             (click)="makePurchase(factory.title, factory.production, factory.price)">
       {{factory.purchased}} {{factory.title}} - £{{factory.price | number: '1.2-2'}}
     </button>

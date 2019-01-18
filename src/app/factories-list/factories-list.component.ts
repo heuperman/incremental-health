@@ -20,10 +20,15 @@ export class FactoriesListComponent implements OnInit {
     this.factories = this.factoryService.getFactories();
   }
 
-  makePurchase(title: string, production: number, price: number) {
+  makePurchase(title: string, production: number, price: number): void {
     this.countService.subtractFromCount(price);
     this.factoryService.recordPurchase(title);
     this.countService.updateProduction();
+  }
+
+  stageUnlocked(title: string): boolean {
+    const previousStage = this.factoryService.getPreviousStage(title);
+    return previousStage ? previousStage.purchased >= 10 : true;
   }
 
 }

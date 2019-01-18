@@ -2,8 +2,8 @@
 
 @include mat-core();
 
-$terraform-primary: mat-palette($mat-blue);
-$terraform-accent:  mat-palette($mat-red);
+$terraform-primary: mat-palette($mat-light-blue);
+$terraform-accent:  mat-palette($mat-deep-orange);
 $terraform-theme:   mat-light-theme($terraform-primary, $terraform-accent);
 
 @include angular-material-theme($terraform-theme);
