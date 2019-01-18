@@ -25,13 +25,6 @@ export class UpgradesListComponent implements OnInit {
     this.upgrades = this.upgradeService.getUpgrades();
   }
 
-  upgradeAvailable(title: string, target: string, requiredLevel: number): boolean {
-    const targetUpgrade = this.upgrades.find(upgrade => upgrade.title === title);
-    return!targetUpgrade.purchased
-      && this.countService.getCount() >= targetUpgrade.price
-      && this.factoryService.getFactory(target).purchased >= requiredLevel;
-  }
-
   upgradeFactory(title: string, target: string, price: number, multiplier: number) {
     this.countService.subtractFromCount(price);
     this.factoryService.multiplyProduction(target, multiplier);
