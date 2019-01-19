@@ -1,11 +1,8 @@
-button {
-  width: 200px;
+.upgrade-card {
+  width: 280px;
   margin: 10px;
 }
 
-mat-list {
-  margin-top: 16px;
-  align-content: center;
-  width: 220px;
-  float:left;
+.upgrade-button {
+  width: 100%;
 }

@@ -1,10 +1,14 @@
-<mat-list class="factoriesList">
-  <mat-list-item  *ngFor="let factory of factories">
-    <button mat-flat-button color="primary"
-            *ngIf="stageUnlocked(factory.title)"
-            [disabled]="factory.price>countService.getCount()"
-            (click)="makePurchase(factory.title, factory.production, factory.price)">
-      {{factory.purchased}} {{factory.title}} - £{{factory.price | number: '1.2-2'}}
-    </button>
-  </mat-list-item>
-</mat-list>
+<ng-container *ngFor="let factory of factories">
+  <mat-card class="factory-card" *ngIf="stageUnlocked(factory.title)">
+    <mat-card-header>
+      <mat-card-title>{{factory.title}}</mat-card-title>
+      <mat-card-subtitle>owned: {{factory.purchased}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" class="factory-button"
+              [disabled]="factory.price>countService.getCount()"
+              (click)="makePurchase(factory.title, factory.production, factory.price)"
+      >buy - £{{factory.price | number: '1.2-2'}}</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

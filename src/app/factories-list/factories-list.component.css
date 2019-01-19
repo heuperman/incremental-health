@@ -1,11 +1,8 @@
-button {
-  width: 200px;
+.factory-card {
+  width: 280px;
   margin: 10px;
 }
 
-mat-list {
-  margin-top: 16px;
-  align-content: center;
-  width: 220px;
-  float:left;
+.factory-button {
+  width: 100%;
 }

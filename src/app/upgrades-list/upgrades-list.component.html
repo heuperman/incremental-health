@@ -1,10 +1,15 @@
-<mat-list class="upgradesList">
-  <mat-list-item  *ngFor="let upgrade of upgrades">
-    <button mat-stroked-button color="primary"
-            *ngIf="factoryService.getFactory(upgrade.target).purchased >= upgrade.requiredLevel"
-            [disabled]="upgrade.price>countService.getCount()"
-            (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
-      {{upgrade.title}} - £{{upgrade.price | number: '1.2-2'}}
-    </button>
-  </mat-list-item>
-</mat-list>
+<ng-container *ngFor="let upgrade of upgrades">
+  <mat-card class="upgrade-card" *ngIf="factoryService.getFactory(upgrade.target).purchased >= upgrade.requiredLevel">
+    <mat-card-header>
+      <mat-card-title>{{upgrade.title}}</mat-card-title>
+      <mat-card-subtitle>{{upgrade.title}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button class="upgrade-button" mat-stroked-button color="primary"
+              [disabled]="upgrade.price>countService.getCount()"
+              (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
+        upgrade - £{{upgrade.price | number: '1.2-2'}}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
