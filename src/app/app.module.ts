@@ -13,7 +13,7 @@ import { GetButtonComponent } from './get-button/get-button.component';
 import { CountService } from './count.service';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
-import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
+// import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
     GetButtonComponent,
     TitleBarComponent,
     FactoriesListComponent,
-    UpgradesListComponent
+    // UpgradesListComponent
   ],
   imports: [
     BrowserModule,

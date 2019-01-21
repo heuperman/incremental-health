@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Factory} from '../factory';
 import {FactoryService} from '../factory.service';
 import {CountService} from '../count.service';
+import {GameDataService} from '../game-data.service';
 
 @Component({
   selector: 'app-factories-list',
@@ -13,22 +14,23 @@ export class FactoriesListComponent implements OnInit {
 
   constructor(
     public factoryService: FactoryService,
-    public countService: CountService
+    public countService: CountService,
+    public gameDataService: GameDataService
   ) {}
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
   }
 
-  makePurchase(title: string, production: number, price: number): void {
-    this.countService.subtractFromCount(price);
-    this.factoryService.recordPurchase(title);
+  makePurchase(factory: Factory): void {
+    this.countService.subtractFromCount(this.gameDataService.getPrice(factory));
+    this.gameDataService.recordPurchase(factory, 1);
     this.countService.updateProduction();
   }
 
-  stageUnlocked(title: string): boolean {
-    const previousStage = this.factoryService.getPreviousStage(title);
-    return previousStage ? previousStage.purchased >= 10 : true;
+  stageUnlocked(factory: Factory): boolean {
+    const previousStage = this.factoryService.getPreviousStage(factory);
+    return previousStage ? this.gameDataService.getAmountPurchased(previousStage) >= 10 : true;
   }
 
 }

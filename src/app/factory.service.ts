@@ -9,16 +9,16 @@ export class FactoryService {
   constructor() { }
 
   factories: Factory[] = [
-    {title: 'first', production: 1, price: 1, purchased: 0},
-    {title: 'second', production: 10, price: 20, purchased: 0},
-    {title: 'third', production: 100, price: 400, purchased: 0},
-    {title: 'fourth', production: 1000, price: 8000, purchased: 0},
-    {title: 'fifth', production: 1E4, price: 16E4, purchased: 0},
-    {title: 'sixth', production: 1E5, price: 32E5, purchased: 0},
-    {title: 'seventh', production: 1E6, price: 64E6, purchased: 0},
-    {title: 'eight', production: 1E7, price: 128E7, purchased: 0},
-    {title: 'ninth', production: 1E8, price: 256E8, purchased: 0},
-    {title: 'tenth', production: 1E9, price: 612E9, purchased: 0}
+    {title: 'first', baseProduction: 1, basePrice: 1},
+    {title: 'second', baseProduction: 10, basePrice: 20},
+    {title: 'third', baseProduction: 100, basePrice: 400},
+    {title: 'fourth', baseProduction: 1000, basePrice: 8000},
+    {title: 'fifth', baseProduction: 1E4, basePrice: 16E4},
+    {title: 'sixth', baseProduction: 1E5, basePrice: 32E5},
+    {title: 'seventh', baseProduction: 1E6, basePrice: 64E6},
+    {title: 'eight', baseProduction: 1E7, basePrice: 128E7},
+    {title: 'ninth', baseProduction: 1E8, basePrice: 256E8},
+    {title: 'tenth', baseProduction: 1E9, basePrice: 612E9}
   ];
 
   getFactories(): Factory[] {
@@ -29,21 +29,12 @@ export class FactoryService {
     return this.factories.find(factory => factory.title === title);
   }
 
-  increasePrice(title: string): void {
-    this.getFactory(title).price *= 1.3;
-  }
+  // multiplyProduction(target: string, multiplier: number): void {
+  //   this.getFactory(target).production *= multiplier;
+  // }
 
-  multiplyProduction(target: string, multiplier: number): void {
-    this.getFactory(target).production *= multiplier;
-  }
-
-  recordPurchase(title: string): void {
-    this.increasePrice(title);
-    this.getFactory(title).purchased++;
-  }
-
-  getPreviousStage(title: string): Factory | undefined {
-    const index = this.factories.indexOf(this.getFactory(title)) - 1;
+  getPreviousStage(factory: Factory): Factory | undefined {
+    const index = this.factories.indexOf(factory) - 1;
     return index >= 0 ? this.factories[index] : undefined;
   }
 

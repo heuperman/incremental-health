@@ -8,7 +8,7 @@ export class CountService {
   private count = 0;
   private production = 0;
   private intervalId: number;
-  constructor(public factoryService: FactoryService) { }
+  constructor(private factoryService: FactoryService) { }
 
   getCount() {
     return this.count;
@@ -31,7 +31,7 @@ export class CountService {
   getProduction(): number {
     let totalProduction = 0;
     for (const factory of this.factoryService.getFactories()) {
-      totalProduction += factory.purchased * factory.production;
+      totalProduction += factory.baseProduction;
     }
     return totalProduction;
   }
