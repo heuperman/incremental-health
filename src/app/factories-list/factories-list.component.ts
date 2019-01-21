@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Factory} from '../factory';
 import {FactoryService} from '../factory.service';
-import {CountService} from '../count.service';
 import {GameDataService} from '../game-data.service';
 
 @Component({
@@ -14,18 +13,11 @@ export class FactoriesListComponent implements OnInit {
 
   constructor(
     public factoryService: FactoryService,
-    public countService: CountService,
     public gameDataService: GameDataService
   ) {}
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
-  }
-
-  makePurchase(factory: Factory): void {
-    this.countService.subtractFromCount(this.gameDataService.getPrice(factory));
-    this.gameDataService.recordPurchase(factory, 1);
-    this.countService.updateProduction();
   }
 
   stageUnlocked(factory: Factory): boolean {

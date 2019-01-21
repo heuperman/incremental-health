@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.gameDataService.loadData();
+    this.gameDataService.updateProduction();
   }
 
   @HostListener('window:beforeunload', ['$event'])

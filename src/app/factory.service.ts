@@ -29,10 +29,6 @@ export class FactoryService {
     return this.factories.find(factory => factory.title === title);
   }
 
-  // multiplyProduction(target: string, multiplier: number): void {
-  //   this.getFactory(target).production *= multiplier;
-  // }
-
   getPreviousStage(factory: Factory): Factory | undefined {
     const index = this.factories.indexOf(factory) - 1;
     return index >= 0 ? this.factories[index] : undefined;

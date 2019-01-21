@@ -10,7 +10,6 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { GetButtonComponent } from './get-button/get-button.component';
-import { CountService } from './count.service';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
 // import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
@@ -32,7 +31,6 @@ import { FactoriesListComponent } from './factories-list/factories-list.componen
     MatListModule
   ],
   providers: [
-    CountService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 // import { Component, OnInit } from '@angular/core';
 // import {FactoryService} from '../factory.service';
 // import {UpgradeService} from '../upgrade.service';
-// import {CountService} from '../count.service';
+// import {ProductionService} from '../count.service';
 // import {Factory} from '../factory';
 // import {Upgrade} from '../upgrade';
 //
@@ -15,7 +15,7 @@
 //   upgrades: Upgrade[];
 //
 //   constructor(
-//     public countService: CountService,
+//     public countService: ProductionService,
 //     public factoryService: FactoryService,
 //     public upgradeService: UpgradeService
 //   ) {}

@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-actions>
       <button class="upgrade-button" mat-stroked-button color="primary"
-              [disabled]="upgrade.price>countService.getCount()"
+              [disabled]="upgrade.price>10"
               (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
         upgrade - £{{upgrade.price | number: '1.2-2'}}
       </button>

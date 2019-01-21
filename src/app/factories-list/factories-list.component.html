@@ -6,8 +6,8 @@
     </mat-card-header>
     <mat-card-actions>
       <button mat-flat-button color="primary" class="factory-button"
-              [disabled]="gameDataService.getPrice(factory)>countService.getCount()"
-              (click)="makePurchase(factory)"
+              [disabled]="gameDataService.getPrice(factory)>gameDataService.getScore()"
+              (click)="gameDataService.recordPurchase(factory, 1)"
       >buy - £{{gameDataService.getPrice(factory) | number: '1.2-2'}}</button>
     </mat-card-actions>
   </mat-card>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CountService} from '../count.service';
+import {GameDataService} from '../game-data.service';
 
 @Component({
   selector: 'app-title-bar',
@@ -9,7 +9,7 @@ import {CountService} from '../count.service';
 export class TitleBarComponent implements OnInit {
   title = 'incremental';
 
-  constructor(public countService: CountService) { }
+  constructor(public gameDataService: GameDataService) { }
 
   ngOnInit() {
   }
