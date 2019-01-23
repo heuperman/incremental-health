@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Factory} from '../factory';
 import {FactoryService} from '../factory.service';
 import {GameDataService} from '../game-data.service';
+import {UpgradeService} from '../upgrade.service';
 
 @Component({
   selector: 'app-factories-list',
@@ -13,6 +14,7 @@ export class FactoriesListComponent implements OnInit {
 
   constructor(
     public factoryService: FactoryService,
+    public upgradeService: UpgradeService,
     public gameDataService: GameDataService
   ) {}
 

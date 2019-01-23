@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Upgrade } from './upgrade';
+import {FactoryService} from './factory.service';
+import {GameDataService} from './game-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UpgradeService {
-
-  constructor() { }
-
-  upgrades = [
+  upgrades: Upgrade[] = [
     {title: 'double first', target: 'first', multiplier: 2, price: 50, requiredLevel: 10},
     {title: 'double second', target: 'second', multiplier: 2, price: 1000, requiredLevel: 10},
     {title: 'double third', target: 'third', multiplier: 2, price: 2E4, requiredLevel: 10},
@@ -20,17 +19,25 @@ export class UpgradeService {
     {title: 'double fourth', target: 'fourth', multiplier: 2, price: 4E7, requiredLevel: 25},
     {title: 'double fifth', target: 'fifth', multiplier: 2, price: 8E8, requiredLevel: 25}
   ];
+  availableUpgrades: Upgrade[] = [];
+
+  constructor(private factoryService: FactoryService, private gameDataService: GameDataService) { }
 
   getUpgrades(): Upgrade[] {
     return this.upgrades;
   }
 
-  getUpgrade(title: string): Upgrade {
-    return this.upgrades.find(upgrade => upgrade.title === title);
+  getAvailableUpgrades(): Upgrade[] {
+    return this.availableUpgrades;
   }
 
-  setUpgradeToPurchased(title: string): void {
-    this.upgrades.splice(this.upgrades.indexOf(this.getUpgrade(title)), 1);
+  checkAvailability() {
+    for (const upgrade of this.upgrades) {
+      const factory = this.factoryService.getFactory(upgrade.target);
+      if (this.gameDataService.getAmountPurchased(factory) >= upgrade.requiredLevel) {
+        this.availableUpgrades.push(upgrade);
+      }
+    }
   }
 
 }
