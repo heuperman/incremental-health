@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Factory} from '../factory';
-import {FactoryService} from '../factory.service';
-import {GameDataService} from '../game-data.service';
+import { Factory } from '../factory';
+import { FactoryService } from '../factory.service';
+import { GameDataService } from '../game-data.service';
+import { Multipliers } from '../multipliers';
 
 @Component({
   selector: 'app-factories-list',
@@ -26,7 +27,7 @@ export class FactoriesListComponent implements OnInit {
   }
 
   getPrice(factory: Factory): number {
-    return this.gameDataService.getAmountPurchased(factory) * 1.3 * factory.basePrice || factory.basePrice;
+    return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
   }
 
   buyFactory(factory: Factory, amount: number) {

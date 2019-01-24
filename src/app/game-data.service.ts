@@ -3,6 +3,7 @@ import { Factory } from './factory';
 import { FactoryService } from './factory.service';
 import { Upgrade } from './upgrade';
 import { UpgradeService } from './upgrade.service';
+import { Multipliers } from './multipliers';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class GameDataService {
   }
 
   getMultiplier(factory: Factory, upgradesToApply: Upgrade[]): number {
-    let totalMultiplier = 1;
+    let totalMultiplier = Multipliers.base;
     const upgrades =  upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factory.title) : [];
     for (const upgrade of upgrades) {
       totalMultiplier *= upgrade.multiplier;
