@@ -1,91 +1,101 @@
 import { Injectable } from '@angular/core';
-import {Factory} from './factory';
-import {FactoryService} from './factory.service';
-import {GameData} from './game-data';
-import {Upgrade} from './upgrade';
+import { Factory } from './factory';
+import { FactoryService } from './factory.service';
+import { Upgrade } from './upgrade';
+import { UpgradeService } from './upgrade.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameDataService {
-  gameData: GameData = {
-    score: 0,
-    factoriesPurchased: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    upgradesPurchased: []
-  };
-  production: number;
-  intervalId: number;
+  private score = 0;
+  private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  private upgradesPurchased = [];
 
-  constructor(private factoryService: FactoryService) { }
+  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) {}
 
-  getAmountPurchased(factory: Factory): number {
-    const index = this.factoryService.getFactories().indexOf(factory);
-    return this.gameData.factoriesPurchased[index] || 0;
+  startProduction() {
+    setInterval(() => this.score += this.calculateProduction() / 10, 100);
   }
 
-  getPrice(factory: Factory): number {
-    const index = this.factoryService.getFactories().indexOf(factory);
-    return this.gameData.factoriesPurchased[index] * 1.3 * factory.basePrice || factory.basePrice;
-
-  }
-
-  recordFactoryPurchase(factory: Factory, amount: number): void  {
-    this.subtractFromScore(this.getPrice(factory) * amount);
-    this.addPurchaseToData(factory, amount);
-    this.updateProduction();
-  }
-
-  recordUpgradePurchase(upgrade: Upgrade): void {
-    this.subtractFromScore(upgrade.price);
-    this.addUpgradeToData(upgrade);
-    this.updateProduction();
-  }
-
-  saveData(): void {
-    localStorage.setItem('gameData', JSON.stringify(this.gameData));
-  }
-
-  loadData(): void {
-    const loadedData = JSON.parse(localStorage.getItem('gameData'));
-    if (loadedData) {
-      this.gameData.score = loadedData.score;
-      this.gameData.factoriesPurchased = loadedData.factoriesPurchased;
+  calculateProduction(): number {
+    let upgradesToApply: Upgrade[];
+    for (const upgradeTitle of this.upgradesPurchased) {
+      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.title === upgradeTitle);
     }
+    let production = 0;
+    for (const factory of this.factoryService.getFactories()) {
+      production += factory.baseProduction
+        * this.getMultiplier(factory, upgradesToApply)
+        * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
+    }
+    return production;
+  }
+
+  getMultiplier(factory: Factory, upgradesToApply: Upgrade[]): number {
+    let totalMultiplier = 1;
+    const upgrades =  upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factory.title) : [];
+    for (const upgrade of upgrades) {
+      totalMultiplier *= upgrade.multiplier;
+    }
+    return totalMultiplier;
   }
 
   getScore(): number {
-    return this.gameData.score;
+    return this.score;
   }
 
   addToScore(amount: number) {
-    this.gameData.score += amount;
+    this.score += amount;
   }
 
   subtractFromScore(price: number) {
-    this.gameData.score -= price;
+    this.score -= price;
   }
 
-  addPurchaseToData(factory: Factory, amount: number) {
+  getAmountPurchased(factory: Factory): number {
     const index = this.factoryService.getFactories().indexOf(factory);
-    this.gameData.factoriesPurchased[index] += amount;
+    return this.factoriesPurchased[index] || 0;
   }
 
-  addUpgradeToData(upgrade: Upgrade) {
-    this.gameData.upgradesPurchased.push(upgrade);
+  addAmountPurchased(factory: Factory, amount: number) {
+    const index = this.factoryService.getFactories().indexOf(factory);
+    this.factoriesPurchased[index] += amount;
+    this.checkAvailability();
   }
 
-  updateProduction() {
-    clearInterval(this.intervalId);
-    this.production = this.getProduction();
-    this.intervalId = setInterval(() => this.addToScore(this.production / 10), 100);
+  addUpgradePurchased(upgrade: Upgrade) {
+    this.upgradesPurchased.push(upgrade.title);
+    this.upgradeService.removeFromAvailableUpgrades(upgrade);
   }
 
-  getProduction(): number {
-    let totalProduction = 0;
-    for (const factory of this.factoryService.getFactories()) {
-      totalProduction += factory.baseProduction * this.getAmountPurchased(factory);
+  saveData() {
+    const gameData = {
+      score: this.score,
+      factoriesPurchased: this.factoriesPurchased,
+      upgradesPurchased: this.upgradesPurchased
+    };
+    localStorage.setItem('gameData', JSON.stringify(gameData));
+  }
+
+  loadData() {
+    const loadedData = JSON.parse(localStorage.getItem('gameData'));
+    if (loadedData) {
+      this.score = loadedData.score;
+      this.factoriesPurchased = loadedData.factoriesPurchased;
+      this.upgradesPurchased = loadedData.upgradesPurchased;
     }
-    return totalProduction;
+  }
+
+  checkAvailability() {
+    for (const upgrade of this.upgradeService.getUpgrades()) {
+      const factory = this.factoryService.getFactory(upgrade.target);
+      if (!this.upgradesPurchased.includes(upgrade.title)
+        && this.getAmountPurchased(factory) >= upgrade.requiredLevel
+        && this.upgradeService.getAvailableUpgrades().filter(availableUpgrade => availableUpgrade === upgrade).length === 0) {
+        this.upgradeService.addToAvailableUpgrades(upgrade);
+      }
+    }
   }
 
 }

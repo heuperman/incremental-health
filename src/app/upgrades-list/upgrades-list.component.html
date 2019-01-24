@@ -7,7 +7,7 @@
     <mat-card-actions>
       <button class="upgrade-button" mat-stroked-button color="primary"
               [disabled]="upgrade.price>gameDataService.getScore()"
-              (click)="gameDataService.recordUpgradePurchase(upgrade)">
+              (click)="buyUpgrade(upgrade)">
         upgrade - £{{upgrade.price | number: '1.2-2'}}
       </button>
     </mat-card-actions>

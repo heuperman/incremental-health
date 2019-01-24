@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UpgradeService} from '../upgrade.service';
-import {Upgrade} from '../upgrade';
-import {GameDataService} from '../game-data.service';
+import { UpgradeService } from '../upgrade.service';
+import { Upgrade } from '../upgrade';
+import { GameDataService } from '../game-data.service';
 
 @Component({
   selector: 'app-upgrades-list',
@@ -15,7 +15,11 @@ export class UpgradesListComponent implements OnInit {
 
   ngOnInit() {
     this.upgrades = this.upgradeService.getAvailableUpgrades();
-    console.log(this.upgrades);
+  }
+
+  buyUpgrade(upgrade: Upgrade) {
+    this.gameDataService.subtractFromScore(upgrade.price);
+    this.gameDataService.addUpgradePurchased(upgrade);
   }
 
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Factory} from '../factory';
 import {FactoryService} from '../factory.service';
 import {GameDataService} from '../game-data.service';
-import {UpgradeService} from '../upgrade.service';
 
 @Component({
   selector: 'app-factories-list',
@@ -14,7 +13,6 @@ export class FactoriesListComponent implements OnInit {
 
   constructor(
     public factoryService: FactoryService,
-    public upgradeService: UpgradeService,
     public gameDataService: GameDataService
   ) {}
 
@@ -27,4 +25,12 @@ export class FactoriesListComponent implements OnInit {
     return previousStage ? this.gameDataService.getAmountPurchased(previousStage) >= 10 : true;
   }
 
+  getPrice(factory: Factory): number {
+    return this.gameDataService.getAmountPurchased(factory) * 1.3 * factory.basePrice || factory.basePrice;
+  }
+
+  buyFactory(factory: Factory, amount: number) {
+    this.gameDataService.subtractFromScore(this.getPrice(factory) * amount);
+    this.gameDataService.addAmountPurchased(factory, amount);
+  }
 }

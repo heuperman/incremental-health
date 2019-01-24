@@ -1,6 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GameDataService} from './game-data.service';
-import {UpgradeService} from './upgrade.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +8,14 @@ import {UpgradeService} from './upgrade.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private gameDataService: GameDataService, private upgradeService: UpgradeService) {
-  }
+  constructor(
+    private gameDataService: GameDataService,
+  ) {}
 
   ngOnInit() {
     this.gameDataService.loadData();
-    this.gameDataService.updateProduction();
-    this.upgradeService.checkAvailability();
+    this.gameDataService.startProduction();
+    this.gameDataService.checkAvailability();
   }
 
   @HostListener('window:beforeunload', ['$event'])

@@ -7,7 +7,8 @@ import {GameDataService} from '../game-data.service';
   styleUrls: ['./get-button.component.css']
 })
 export class GetButtonComponent implements OnInit {
-  constructor(public gameDataService: GameDataService) { }
+  constructor(public gameDataService: GameDataService) {
+  }
 
   ngOnInit() {
   }

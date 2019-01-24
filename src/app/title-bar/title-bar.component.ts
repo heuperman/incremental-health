@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GameDataService} from '../game-data.service';
+import { GameDataService } from '../game-data.service';
 
 @Component({
   selector: 'app-title-bar',

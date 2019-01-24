@@ -6,9 +6,9 @@
     </mat-card-header>
     <mat-card-actions>
       <button mat-flat-button color="primary" class="factory-button"
-              [disabled]="gameDataService.getPrice(factory)>gameDataService.getScore()"
-              (click)="gameDataService.recordFactoryPurchase(factory, 1); upgradeService.checkAvailability()"
-      >buy - £{{gameDataService.getPrice(factory) | number: '1.2-2'}}</button>
+              [disabled]="getPrice(factory)>gameDataService.getScore()"
+              (click)="buyFactory(factory, 1)"
+      >buy - £{{getPrice(factory) | number: '1.2-2'}}</button>
     </mat-card-actions>
   </mat-card>
 </ng-container>
