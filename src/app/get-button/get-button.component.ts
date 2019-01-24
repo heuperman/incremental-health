@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CountService} from '../count.service';
+import {GameDataService} from '../game-data.service';
 
 @Component({
   selector: 'app-get-button',
@@ -7,7 +7,8 @@ import {CountService} from '../count.service';
   styleUrls: ['./get-button.component.css']
 })
 export class GetButtonComponent implements OnInit {
-  constructor(public countService: CountService) { }
+  constructor(public gameDataService: GameDataService) {
+  }
 
   ngOnInit() {
   }

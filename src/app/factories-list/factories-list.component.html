@@ -1,14 +1,14 @@
 <ng-container *ngFor="let factory of factories">
-  <mat-card class="factory-card" *ngIf="stageUnlocked(factory.title)">
+  <mat-card class="factory-card" *ngIf="stageUnlocked(factory)">
     <mat-card-header>
       <mat-card-title>{{factory.title}}</mat-card-title>
-      <mat-card-subtitle>owned: {{factory.purchased}}</mat-card-subtitle>
+      <mat-card-subtitle>owned: {{gameDataService.getAmountPurchased(factory)}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
       <button mat-flat-button color="primary" class="factory-button"
-              [disabled]="factory.price>countService.getCount()"
-              (click)="makePurchase(factory.title, factory.production, factory.price)"
-      >buy - £{{factory.price | number: '1.2-2'}}</button>
+              [disabled]="getPrice(factory)>gameDataService.getScore()"
+              (click)="buyFactory(factory, 1)"
+      >buy - £{{getPrice(factory) | number: '1.2-2'}}</button>
     </mat-card-actions>
   </mat-card>
 </ng-container>

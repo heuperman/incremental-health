@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FactoryService} from '../factory.service';
-import {UpgradeService} from '../upgrade.service';
-import {CountService} from '../count.service';
-import {Factory} from '../factory';
-import {Upgrade} from '../upgrade';
+import { UpgradeService } from '../upgrade.service';
+import { Upgrade } from '../upgrade';
+import { GameDataService } from '../game-data.service';
 
 @Component({
   selector: 'app-upgrades-list',
@@ -11,25 +9,17 @@ import {Upgrade} from '../upgrade';
   styleUrls: ['./upgrades-list.component.css']
 })
 export class UpgradesListComponent implements OnInit {
-  factories: Factory[];
   upgrades: Upgrade[];
 
-  constructor(
-    public countService: CountService,
-    public factoryService: FactoryService,
-    public upgradeService: UpgradeService
-  ) {}
+  constructor(public gameDataService: GameDataService, public upgradeService: UpgradeService) {}
 
   ngOnInit() {
-    this.factories = this.factoryService.getFactories();
-    this.upgrades = this.upgradeService.getUpgrades();
+    this.upgrades = this.upgradeService.getAvailableUpgrades();
   }
 
-  upgradeFactory(title: string, target: string, price: number, multiplier: number) {
-    this.countService.subtractFromCount(price);
-    this.factoryService.multiplyProduction(target, multiplier);
-    this.upgradeService.setUpgradeToPurchased(title);
-    this.countService.updateProduction();
+  buyUpgrade(upgrade: Upgrade) {
+    this.gameDataService.subtractFromScore(upgrade.price);
+    this.gameDataService.addUpgradePurchased(upgrade);
   }
 
 }

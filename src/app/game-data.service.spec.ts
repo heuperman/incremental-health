@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CountService } from './count.service';
+import { GameDataService } from './game-data.service';
 
-describe('CountService', () => {
+describe('GameDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CountService = TestBed.get(CountService);
+    const service: GameDataService = TestBed.get(GameDataService);
     expect(service).toBeTruthy();
   });
 });

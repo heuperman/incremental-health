@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {GameDataService} from './game-data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor(
+    private gameDataService: GameDataService,
+  ) {}
 
   ngOnInit() {
+    this.gameDataService.loadData();
+    this.gameDataService.startProduction();
+    this.gameDataService.checkAvailability();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler() {
+    this.gameDataService.saveData();
   }
 
 }

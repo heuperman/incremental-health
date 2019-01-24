@@ -1,13 +1,13 @@
 <ng-container *ngFor="let upgrade of upgrades">
-  <mat-card class="upgrade-card" *ngIf="factoryService.getFactory(upgrade.target).purchased >= upgrade.requiredLevel">
+  <mat-card class="upgrade-card">
     <mat-card-header>
       <mat-card-title>{{upgrade.title}}</mat-card-title>
       <mat-card-subtitle>{{upgrade.title}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
       <button class="upgrade-button" mat-stroked-button color="primary"
-              [disabled]="upgrade.price>countService.getCount()"
-              (click)="upgradeFactory(upgrade.title, upgrade.target, upgrade.price, upgrade.multiplier)">
+              [disabled]="upgrade.price>gameDataService.getScore()"
+              (click)="buyUpgrade(upgrade)">
         upgrade - £{{upgrade.price | number: '1.2-2'}}
       </button>
     </mat-card-actions>

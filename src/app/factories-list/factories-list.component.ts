@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Factory} from '../factory';
-import {FactoryService} from '../factory.service';
-import {CountService} from '../count.service';
+import { Factory } from '../factory';
+import { FactoryService } from '../factory.service';
+import { GameDataService } from '../game-data.service';
+import { Multipliers } from '../multipliers';
 
 @Component({
   selector: 'app-factories-list',
@@ -13,22 +14,24 @@ export class FactoriesListComponent implements OnInit {
 
   constructor(
     public factoryService: FactoryService,
-    public countService: CountService
+    public gameDataService: GameDataService
   ) {}
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
   }
 
-  makePurchase(title: string, production: number, price: number): void {
-    this.countService.subtractFromCount(price);
-    this.factoryService.recordPurchase(title);
-    this.countService.updateProduction();
+  stageUnlocked(factory: Factory): boolean {
+    const previousStage = this.factoryService.getPreviousStage(factory);
+    return previousStage ? this.gameDataService.getAmountPurchased(previousStage) >= 10 : true;
   }
 
-  stageUnlocked(title: string): boolean {
-    const previousStage = this.factoryService.getPreviousStage(title);
-    return previousStage ? previousStage.purchased >= 10 : true;
+  getPrice(factory: Factory): number {
+    return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
   }
 
+  buyFactory(factory: Factory, amount: number) {
+    this.gameDataService.subtractFromScore(this.getPrice(factory) * amount);
+    this.gameDataService.addAmountPurchased(factory, amount);
+  }
 }
