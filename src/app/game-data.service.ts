@@ -9,6 +9,8 @@ import { Multipliers } from './multipliers';
   providedIn: 'root'
 })
 export class GameDataService {
+  private stress = 1E6;
+  private destress = 0;
   private score = 0;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   private upgradesPurchased = [];
@@ -17,6 +19,7 @@ export class GameDataService {
 
   startProduction() {
     setInterval(() => this.score += this.calculateProduction() / 10, 100);
+    setInterval(() => this.stress += this.calculateStressIncrease() / 10, 100);
   }
 
   calculateProduction(): number {
@@ -31,6 +34,14 @@ export class GameDataService {
         * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
     }
     return production;
+  }
+
+  calculateStressIncrease() {
+    let stressIncrease = 0;
+    for (const factory of this.factoryService.getFactories()) {
+      stressIncrease += factory.baseProduction * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
+    }
+    return stressIncrease;
   }
 
   getMultiplier(factory: Factory, upgradesToApply: Upgrade[]): number {
@@ -59,9 +70,15 @@ export class GameDataService {
     return this.factoriesPurchased[index] || 0;
   }
 
-  addAmountPurchased(factory: Factory, amount: number) {
+  addPurchased(factory: Factory) {
     const index = this.factoryService.getFactories().indexOf(factory);
-    this.factoriesPurchased[index] += amount;
+    this.factoriesPurchased[index]++;
+    this.checkAvailability();
+  }
+
+  removePurchased(factory: Factory) {
+    const index = this.factoryService.getFactories().indexOf(factory);
+    this.factoriesPurchased[index]--;
     this.checkAvailability();
   }
 
@@ -97,6 +114,18 @@ export class GameDataService {
         this.upgradeService.addToAvailableUpgrades(upgrade);
       }
     }
+  }
+
+  reduceStress(amount: number) {
+    this.destress += amount;
+  }
+
+  getStress() {
+    return this.stress - this.destress;
+  }
+
+  getDestress() {
+    return this.destress;
   }
 
 }

@@ -9,16 +9,16 @@ export class FactoryService {
   constructor() { }
 
   factories: Factory[] = [
-    {title: 'first', baseProduction: 1, basePrice: 1},
-    {title: 'second', baseProduction: 10, basePrice: 20},
-    {title: 'third', baseProduction: 100, basePrice: 400},
-    {title: 'fourth', baseProduction: 1000, basePrice: 8000},
-    {title: 'fifth', baseProduction: 1E4, basePrice: 16E4},
-    {title: 'sixth', baseProduction: 1E5, basePrice: 32E5},
-    {title: 'seventh', baseProduction: 1E6, basePrice: 64E6},
-    {title: 'eight', baseProduction: 1E7, basePrice: 128E7},
-    {title: 'ninth', baseProduction: 1E8, basePrice: 256E8},
-    {title: 'tenth', baseProduction: 1E9, basePrice: 612E9}
+    {title: 'dog walking', baseProduction: 1, basePrice: 1},
+    {title: 'babysitting', baseProduction: 10, basePrice: 20},
+    {title: 'take-away delivery', baseProduction: 100, basePrice: 400},
+    {title: 'uber driving', baseProduction: 1000, basePrice: 8000},
+    {title: 'home baking', baseProduction: 1E4, basePrice: 16E4},
+    {title: 'drop shipping', baseProduction: 1E5, basePrice: 32E5},
+    {title: 'podcasting', baseProduction: 1E6, basePrice: 64E6},
+    {title: 'crypto trading', baseProduction: 1E7, basePrice: 128E7},
+    {title: 'self-publishing', baseProduction: 1E8, basePrice: 256E8},
+    {title: 'angel investing', baseProduction: 1E9, basePrice: 612E9}
   ];
 
   getFactories(): Factory[] {

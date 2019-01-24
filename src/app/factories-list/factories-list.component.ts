@@ -30,8 +30,11 @@ export class FactoriesListComponent implements OnInit {
     return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
   }
 
-  buyFactory(factory: Factory, amount: number) {
-    this.gameDataService.subtractFromScore(this.getPrice(factory) * amount);
-    this.gameDataService.addAmountPurchased(factory, amount);
+  buyFactory(factory: Factory) {
+    this.gameDataService.addPurchased(factory);
+  }
+
+  sellFactory(factory: Factory) {
+    this.gameDataService.removePurchased(factory);
   }
 }

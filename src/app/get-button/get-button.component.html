@@ -1,9 +1,22 @@
+<mat-toolbar>Self-care</mat-toolbar>
 <mat-card class="get-card">
   <mat-card-header>
-    <mat-card-title>do-it-yourself</mat-card-title>
-    <mat-card-subtitle>income per click: 1</mat-card-subtitle>
+    <mat-card-title>take a deep breath</mat-card-title>
+    <mat-card-subtitle>reduce stress by 1</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
-    <button mat-flat-button color="accent" class="get-button" (click)="gameDataService.addToScore(1)">get</button>
+    <button mat-flat-button color="primary" class="get-button" (click)="gameDataService.reduceStress(1)">in... and out
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card class="get-card" *ngIf="gameDataService.getScore()>=100">
+  <mat-card-header>
+    <mat-card-title>take a bath</mat-card-title>
+    <mat-card-subtitle>reduce stress by 10</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-flat-button color="primary" class="get-button" (click)="gameDataService.reduceStress(10)">splash
+    </button>
   </mat-card-actions>
 </mat-card>
