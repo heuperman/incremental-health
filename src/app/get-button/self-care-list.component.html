@@ -1,0 +1,16 @@
+<mat-toolbar>Self-care</mat-toolbar>
+
+<ng-container *ngFor="let stage of selfCareStages">
+  <mat-card class="self-care-card">
+    <mat-card-header>
+      <mat-card-title>{{stage.title}}</mat-card-title>
+      <mat-card-subtitle>reduce stress by: {{stage.power}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" class="self-care-button"
+              (click)="gameDataService.reduceStress(stage.power)">
+        {{stage.buttonText}}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

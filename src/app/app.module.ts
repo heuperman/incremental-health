@@ -9,7 +9,7 @@ import {
   MatListModule,
   MatToolbarModule
 } from '@angular/material';
-import { GetButtonComponent } from './get-button/get-button.component';
+import { SelfCareListComponent } from './get-button/self-care-list.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
@@ -17,7 +17,7 @@ import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GetButtonComponent,
+    SelfCareListComponent,
     TitleBarComponent,
     FactoriesListComponent,
     UpgradesListComponent

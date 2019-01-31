@@ -23,18 +23,27 @@ export class FactoriesListComponent implements OnInit {
 
   stageUnlocked(factory: Factory): boolean {
     const previousStage = this.factoryService.getPreviousStage(factory);
-    return previousStage ? this.gameDataService.getAmountPurchased(previousStage) >= 10 : true;
+    if (previousStage) {
+      return this.gameDataService.getDestress() > factory.requiredDestress;
+    } else {
+      return true;
+    }
   }
 
   getPrice(factory: Factory): number {
     return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
   }
 
-  buyFactory(factory: Factory) {
-    this.gameDataService.addPurchased(factory);
+  changeHours(factory: Factory, amount: number) {
+    const index = this.factoryService.getFactories().indexOf(factory);
+    this.gameDataService.updateHours(index, amount);
   }
 
-  sellFactory(factory: Factory) {
-    this.gameDataService.removePurchased(factory);
+  increaseDisabled(): boolean {
+    return this.gameDataService.getHoursAvailable() < 1;
+  }
+
+  decreaseDisabled(factory: Factory): boolean {
+    return this.gameDataService.getAmountPurchased(factory) < 1;
   }
 }

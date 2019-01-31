@@ -12,6 +12,7 @@ export class GameDataService {
   private stress = 1E6;
   private destress = 0;
   private score = 0;
+  private hoursAvailable = 4;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   private upgradesPurchased = [];
 
@@ -70,9 +71,9 @@ export class GameDataService {
     return this.factoriesPurchased[index] || 0;
   }
 
-  addPurchased(factory: Factory) {
-    const index = this.factoryService.getFactories().indexOf(factory);
-    this.factoriesPurchased[index]++;
+  updateHours(index: number, amount: number) {
+    this.factoriesPurchased[index] += amount;
+    this.hoursAvailable -= amount;
     this.checkAvailability();
   }
 
@@ -128,4 +129,7 @@ export class GameDataService {
     return this.destress;
   }
 
+  getHoursAvailable() {
+    return this.hoursAvailable;
+  }
 }
