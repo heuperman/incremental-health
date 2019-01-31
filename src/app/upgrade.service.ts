@@ -5,21 +5,24 @@ import { Upgrade } from './upgrade';
   providedIn: 'root'
 })
 export class UpgradeService {
-  upgrades: Upgrade[] = [
-    {title: 'double first', target: 'first', multiplier: 2, price: 50, requiredLevel: 10},
-    {title: 'double second', target: 'second', multiplier: 2, price: 1000, requiredLevel: 10},
-    {title: 'double third', target: 'third', multiplier: 2, price: 2E4, requiredLevel: 10},
-    {title: 'double fourth', target: 'fourth', multiplier: 2, price: 4E5, requiredLevel: 10},
-    {title: 'double fifth', target: 'fifth', multiplier: 2, price: 8E6, requiredLevel: 10},
-    {title: 'double first again', target: 'first', multiplier: 2, price: 5000, requiredLevel: 25},
-    {title: 'double second again', target: 'second', multiplier: 2, price: 1E5, requiredLevel: 25},
-    {title: 'double third again', target: 'third', multiplier: 2, price: 2E6, requiredLevel: 25},
-    {title: 'double fourth again', target: 'fourth', multiplier: 2, price: 4E7, requiredLevel: 25},
-    {title: 'double fifth again', target: 'fifth', multiplier: 2, price: 8E8, requiredLevel: 25}
-  ];
-  availableUpgrades: Upgrade[] = [];
 
   constructor() { }
+
+  upgrades: Upgrade[] = [
+    {title: 'buy a kettle', id: 1, price: 10, requiredFunds: 5},
+    {title: 'buy a bathtub', id: 2, price: 20, requiredFunds: 10},
+    {title: 'double first', id: 5, target: 'first', multiplier: 2, price: 50, requiredLevel: 10},
+    {title: 'double second', id: 6 , target: 'second', multiplier: 2, price: 1000, requiredLevel: 10},
+    {title: 'double third', id: 7, target: 'third', multiplier: 2, price: 2E4, requiredLevel: 10},
+    {title: 'double fourth', id: 8 , target: 'fourth', multiplier: 2, price: 4E5, requiredLevel: 10},
+    {title: 'double fifth', id: 9 , target: 'fifth', multiplier: 2, price: 8E6, requiredLevel: 10},
+    {title: 'double first again', id: 10 , target: 'first', multiplier: 2, price: 5000, requiredLevel: 25},
+    {title: 'double second again', id: 11 , target: 'second', multiplier: 2, price: 1E5, requiredLevel: 25},
+    {title: 'double third again', id: 12 , target: 'third', multiplier: 2, price: 2E6, requiredLevel: 25},
+    {title: 'double fourth again', id: 13 , target: 'fourth', multiplier: 2, price: 4E7, requiredLevel: 25},
+    {title: 'double fifth again', id: 14 , target: 'fifth', multiplier: 2, price: 8E8, requiredLevel: 25}
+  ];
+  availableUpgrades: Upgrade[] = [];
 
   getUpgrades(): Upgrade[] {
     return this.upgrades;

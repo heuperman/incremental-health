@@ -1,7 +1,7 @@
-<mat-toolbar>Self-care</mat-toolbar>
+<mat-toolbar>self-care</mat-toolbar>
 
 <ng-container *ngFor="let stage of selfCareStages">
-  <mat-card class="self-care-card">
+  <mat-card class="self-care-card" *ngIf="stageUnlocked(stage)">
     <mat-card-header>
       <mat-card-title>{{stage.title}}</mat-card-title>
       <mat-card-subtitle>reduce stress by: {{stage.power}}</mat-card-subtitle>

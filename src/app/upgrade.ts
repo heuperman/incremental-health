@@ -1,7 +1,9 @@
 export interface Upgrade {
   title: string;
-  target: string;
-  multiplier: number;
+  id: number;
   price: number;
-  requiredLevel: number;
+  target?: string;
+  multiplier?: number;
+  requiredLevel?: number;
+  requiredFunds?: number;
 }

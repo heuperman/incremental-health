@@ -14,19 +14,22 @@ export class GameDataService {
   private score = 0;
   private hoursAvailable = 4;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  private upgradesPurchased = [];
+  private upgradesPurchased = [0];
 
-  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) {}
+  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
 
   startProduction() {
-    setInterval(() => this.score += this.calculateProduction() / 10, 100);
-    setInterval(() => this.stress += this.calculateStressIncrease() / 10, 100);
+    setInterval(() => {
+      this.score += this.calculateProduction() / 10;
+      this.stress += this.calculateStressIncrease() / 10;
+      this.checkAvailability();
+    }, 100);
   }
 
   calculateProduction(): number {
     let upgradesToApply: Upgrade[];
-    for (const upgradeTitle of this.upgradesPurchased) {
-      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.title === upgradeTitle);
+    for (const upgradeId of this.upgradesPurchased) {
+      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.id === upgradeId);
     }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
@@ -74,7 +77,6 @@ export class GameDataService {
   updateHours(index: number, amount: number) {
     this.factoriesPurchased[index] += amount;
     this.hoursAvailable -= amount;
-    this.checkAvailability();
   }
 
   removePurchased(factory: Factory) {
@@ -84,8 +86,12 @@ export class GameDataService {
   }
 
   addUpgradePurchased(upgrade: Upgrade) {
-    this.upgradesPurchased.push(upgrade.title);
+    this.upgradesPurchased.push(upgrade.id);
     this.upgradeService.removeFromAvailableUpgrades(upgrade);
+  }
+
+  getPurchasedUpgrades() {
+    return this.upgradesPurchased;
   }
 
   saveData() {
@@ -108,9 +114,8 @@ export class GameDataService {
 
   checkAvailability() {
     for (const upgrade of this.upgradeService.getUpgrades()) {
-      const factory = this.factoryService.getFactory(upgrade.target);
-      if (!this.upgradesPurchased.includes(upgrade.title)
-        && this.getAmountPurchased(factory) >= upgrade.requiredLevel
+      if (!this.upgradesPurchased.includes(upgrade.id)
+        && this.score >= upgrade.requiredFunds
         && this.upgradeService.getAvailableUpgrades().filter(availableUpgrade => availableUpgrade === upgrade).length === 0) {
         this.upgradeService.addToAvailableUpgrades(upgrade);
       }
