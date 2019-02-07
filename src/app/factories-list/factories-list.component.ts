@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Factory } from '../factory';
 import { FactoryService } from '../factory.service';
 import { GameDataService } from '../game-data.service';
-import { Multipliers } from '../multipliers';
 
 @Component({
   selector: 'app-factories-list',
@@ -23,15 +22,26 @@ export class FactoriesListComponent implements OnInit {
 
   stageUnlocked(factory: Factory): boolean {
     const previousStage = this.factoryService.getPreviousStage(factory);
-    return previousStage ? this.gameDataService.getAmountPurchased(previousStage) >= 10 : true;
+    let unlocked;
+    if (previousStage) {
+      unlocked = this.gameDataService.previouslyUnlocked(factory.title) || this.gameDataService.getDestress() > factory.requiredDestress;
+    } else {
+      unlocked = true;
+    }
+    if (unlocked) { this.gameDataService.saveUnlock(factory.title); }
+    return unlocked;
   }
 
-  getPrice(factory: Factory): number {
-    return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
+  changeHours(factory: Factory, amount: number) {
+    const index = this.factoryService.getFactories().indexOf(factory);
+    this.gameDataService.updateHours(index, amount);
   }
 
-  buyFactory(factory: Factory, amount: number) {
-    this.gameDataService.subtractFromScore(this.getPrice(factory) * amount);
-    this.gameDataService.addAmountPurchased(factory, amount);
+  increaseDisabled(): boolean {
+    return this.gameDataService.getHoursAvailable() < 1;
+  }
+
+  decreaseDisabled(factory: Factory): boolean {
+    return this.gameDataService.getAmountPurchased(factory) < 1;
   }
 }

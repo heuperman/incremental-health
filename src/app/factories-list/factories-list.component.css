@@ -3,6 +3,11 @@
   margin: 10px;
 }
 
-.factory-button {
-  width: 100%;
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 49%;
 }

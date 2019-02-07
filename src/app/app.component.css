@@ -14,6 +14,10 @@
   justify-content: flex-start;
 }
 
-.section {
+.actionSection {
   flex-basis: auto;
+}
+
+.upgradeSection {
+  flex-grow: 100;
 }

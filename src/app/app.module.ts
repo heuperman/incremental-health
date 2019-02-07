@@ -1,15 +1,16 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
   MatGridListModule,
   MatListModule,
+  MatProgressBarModule,
   MatToolbarModule
 } from '@angular/material';
-import { GetButtonComponent } from './get-button/get-button.component';
+import { SelfCareListComponent } from './get-button/self-care-list.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
@@ -17,7 +18,7 @@ import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GetButtonComponent,
+    SelfCareListComponent,
     TitleBarComponent,
     FactoriesListComponent,
     UpgradesListComponent
@@ -28,7 +29,8 @@ import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
     MatCardModule,
     MatToolbarModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatProgressBarModule
   ],
   providers: [
   ],
