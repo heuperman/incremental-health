@@ -33,5 +33,5 @@ jobs:
           name: Deploy to github pages if on master
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                npx angular-cli-ghpages --dir=dist/incremental --repo=https://GH_TOKEN@github.com/heuperman/incremental.git
+                npx angular-cli-ghpages --repo=https://GH_TOKEN@github.com/heuperman/incremental.git --dir=dist/incremental --name=heuperman --email=cheuperman@gmail.com
             fi
