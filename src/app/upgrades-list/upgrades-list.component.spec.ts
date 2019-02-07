@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpgradesListComponent } from './upgrades-list.component';
+import {AppComponent} from '../app.component';
+import {SelfCareListComponent} from '../get-button/self-care-list.component';
+import {TitleBarComponent} from '../title-bar/title-bar.component';
+import {FactoriesListComponent} from '../factories-list/factories-list.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule, MatProgressBarModule, MatToolbarModule} from '@angular/material';
 
 describe('UpgradesListComponent', () => {
   let component: UpgradesListComponent;
@@ -8,9 +14,23 @@ describe('UpgradesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpgradesListComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        AppComponent,
+        SelfCareListComponent,
+        TitleBarComponent,
+        FactoriesListComponent,
+        UpgradesListComponent
+      ],
+      imports: [
+        BrowserModule,
+        MatButtonModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatListModule,
+        MatProgressBarModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

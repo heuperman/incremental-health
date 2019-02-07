@@ -1,0 +1,35 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:11.5.0
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install local dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: run linter
+          command: npm lint
+      - run:
+          name: run test suite
+          command: npm test
+      - run:
+          name: build
+          command: ng build --prod --base-href '/incremental/'
+      - run:
+          name: deploy to github pages
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                npx angular-cli-ghpages --dir=dist/incremental
+            fi
