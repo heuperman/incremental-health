@@ -14,7 +14,7 @@ export class GameDataService {
   private score = 0;
   private hoursAvailable = 4;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  private upgradesPurchased = [0];
+  private upgradesPurchased = [];
   private stagesUnlocked = [];
 
   constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
@@ -39,7 +39,6 @@ export class GameDataService {
         * this.getMultiplier(index, upgradesToApply)
         * this.factoriesPurchased[index];
     }
-    console.log(production);
     return production;
   }
 
@@ -52,7 +51,7 @@ export class GameDataService {
   }
 
   getMultiplier(factoryIndex: number, upgradesToApply: Upgrade[]): number {
-    const upgrades =  upgradesToApply.filter(upgrade => upgrade.target === factoryIndex);
+    const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factoryIndex) : [];
     return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
 
@@ -133,6 +132,6 @@ export class GameDataService {
   }
 
   saveUnlock(title: string) {
-    this.stagesUnlocked.push(title);
+    if (!this.stagesUnlocked.includes(title)) { this.stagesUnlocked.push(title); }
   }
 }
