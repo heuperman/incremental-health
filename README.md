@@ -2,6 +2,8 @@
 
 Incremental game built using Angular 7. Watch your score go up! How high will it go??
 
+Build: [![CircleCI](https://circleci.com/gh/heuperman/incremental/tree/master.svg?style=svg)](https://circleci.com/gh/heuperman/incremental/tree/master)
+
 ## Setup
 
 Clone the repo: `git clone https://github.com/heuperman/incremental.git`
