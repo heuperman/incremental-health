@@ -9,45 +9,54 @@ import { Multipliers } from './multipliers';
   providedIn: 'root'
 })
 export class GameDataService {
+  private stress = 1E6;
+  private destress = 0;
   private score = 0;
+  private hoursAvailable = 4;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   private upgradesPurchased = [];
+  private stagesUnlocked = [];
 
-  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) {}
+  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
 
   startProduction() {
-    setInterval(() => this.score += this.calculateProduction() / 10, 100);
+    setInterval(() => {
+      this.score += this.calculateProduction() / 10;
+      this.destress -= this.calculateStressIncrease() / 10;
+      this.checkAvailability();
+    }, 100);
   }
 
   calculateProduction(): number {
     let upgradesToApply: Upgrade[];
-    for (const upgradeTitle of this.upgradesPurchased) {
-      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.title === upgradeTitle);
+    for (const upgradeId of this.upgradesPurchased) {
+      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.id === upgradeId);
     }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
+      const index = this.factoryService.getFactories().indexOf(factory);
       production += factory.baseProduction
-        * this.getMultiplier(factory, upgradesToApply)
-        * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
+        * this.getMultiplier(index, upgradesToApply)
+        * this.factoriesPurchased[index];
     }
     return production;
   }
 
-  getMultiplier(factory: Factory, upgradesToApply: Upgrade[]): number {
-    let totalMultiplier = Multipliers.base;
-    const upgrades =  upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factory.title) : [];
-    for (const upgrade of upgrades) {
-      totalMultiplier *= upgrade.multiplier;
+  calculateStressIncrease() {
+    let stressIncrease = 0;
+    for (const factory of this.factoryService.getFactories()) {
+      stressIncrease += factory.baseProduction * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
     }
-    return totalMultiplier;
+    return stressIncrease;
+  }
+
+  getMultiplier(factoryIndex: number, upgradesToApply: Upgrade[]): number {
+    const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factoryIndex) : [];
+    return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
 
   getScore(): number {
     return this.score;
-  }
-
-  addToScore(amount: number) {
-    this.score += amount;
   }
 
   subtractFromScore(price: number) {
@@ -59,20 +68,23 @@ export class GameDataService {
     return this.factoriesPurchased[index] || 0;
   }
 
-  addAmountPurchased(factory: Factory, amount: number) {
-    const index = this.factoryService.getFactories().indexOf(factory);
+  updateHours(index: number, amount: number) {
     this.factoriesPurchased[index] += amount;
-    this.checkAvailability();
   }
 
   addUpgradePurchased(upgrade: Upgrade) {
-    this.upgradesPurchased.push(upgrade.title);
+    this.upgradesPurchased.push(upgrade.id);
     this.upgradeService.removeFromAvailableUpgrades(upgrade);
+  }
+
+  getPurchasedUpgrades() {
+    return this.upgradesPurchased;
   }
 
   saveData() {
     const gameData = {
       score: this.score,
+      destress: this.destress,
       factoriesPurchased: this.factoriesPurchased,
       upgradesPurchased: this.upgradesPurchased
     };
@@ -83,6 +95,7 @@ export class GameDataService {
     const loadedData = JSON.parse(localStorage.getItem('gameData'));
     if (loadedData) {
       this.score = loadedData.score;
+      this.destress = loadedData.destress;
       this.factoriesPurchased = loadedData.factoriesPurchased;
       this.upgradesPurchased = loadedData.upgradesPurchased;
     }
@@ -90,13 +103,36 @@ export class GameDataService {
 
   checkAvailability() {
     for (const upgrade of this.upgradeService.getUpgrades()) {
-      const factory = this.factoryService.getFactory(upgrade.target);
-      if (!this.upgradesPurchased.includes(upgrade.title)
-        && this.getAmountPurchased(factory) >= upgrade.requiredLevel
+      if (!this.upgradesPurchased.includes(upgrade.id)
+        && this.score >= upgrade.requiredFunds
         && this.upgradeService.getAvailableUpgrades().filter(availableUpgrade => availableUpgrade === upgrade).length === 0) {
         this.upgradeService.addToAvailableUpgrades(upgrade);
       }
     }
   }
 
+  reduceStress(amount: number) {
+    this.destress += amount;
+  }
+
+  getStress(): number {
+    return this.stress - this.destress;
+  }
+
+  getDestress(): number {
+    return this.destress;
+  }
+
+  getHoursAvailable(): number {
+    return this.hoursAvailable - this.factoriesPurchased.reduce((a, b) => a + b);
+  }
+
+  previouslyUnlocked(title: string): boolean {
+    return this.stagesUnlocked.includes(title);
+  }
+
+  saveUnlock(title: string) {
+    if (!this.stagesUnlocked.includes(title)) { this.stagesUnlocked.push(title); }
+    console.log(this.stagesUnlocked);
+  }
 }
