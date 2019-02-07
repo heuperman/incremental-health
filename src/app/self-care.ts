@@ -3,4 +3,5 @@ export interface SelfCare {
   power: number;
   buttonText: string;
   requiredUpgrade: number;
+  timerSpeed: number;
 }

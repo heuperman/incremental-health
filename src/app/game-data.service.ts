@@ -61,10 +61,6 @@ export class GameDataService {
     return this.score;
   }
 
-  addToScore(amount: number) {
-    this.score += amount;
-  }
-
   subtractFromScore(price: number) {
     this.score -= price;
   }
@@ -76,13 +72,6 @@ export class GameDataService {
 
   updateHours(index: number, amount: number) {
     this.factoriesPurchased[index] += amount;
-    this.hoursAvailable -= amount;
-  }
-
-  removePurchased(factory: Factory) {
-    const index = this.factoryService.getFactories().indexOf(factory);
-    this.factoriesPurchased[index]--;
-    this.checkAvailability();
   }
 
   addUpgradePurchased(upgrade: Upgrade) {
@@ -97,6 +86,7 @@ export class GameDataService {
   saveData() {
     const gameData = {
       score: this.score,
+      destress: this.destress,
       factoriesPurchased: this.factoriesPurchased,
       upgradesPurchased: this.upgradesPurchased
     };
@@ -107,6 +97,7 @@ export class GameDataService {
     const loadedData = JSON.parse(localStorage.getItem('gameData'));
     if (loadedData) {
       this.score = loadedData.score;
+      this.destress = loadedData.destress;
       this.factoriesPurchased = loadedData.factoriesPurchased;
       this.upgradesPurchased = loadedData.upgradesPurchased;
     }
@@ -135,6 +126,6 @@ export class GameDataService {
   }
 
   getHoursAvailable() {
-    return this.hoursAvailable;
+    return this.hoursAvailable - this.factoriesPurchased.reduce((a, b) => a + b);
   }
 }

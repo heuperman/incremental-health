@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Factory } from '../factory';
 import { FactoryService } from '../factory.service';
 import { GameDataService } from '../game-data.service';
-import { Multipliers } from '../multipliers';
 
 @Component({
   selector: 'app-factories-list',
@@ -28,10 +27,6 @@ export class FactoriesListComponent implements OnInit {
     } else {
       return true;
     }
-  }
-
-  getPrice(factory: Factory): number {
-    return this.gameDataService.getAmountPurchased(factory) * Multipliers.price * factory.basePrice || factory.basePrice;
   }
 
   changeHours(factory: Factory, amount: number) {
