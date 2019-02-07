@@ -1,12 +1,31 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {SelfCareListComponent} from './get-button/self-care-list.component';
+import {TitleBarComponent} from './title-bar/title-bar.component';
+import {FactoriesListComponent} from './factories-list/factories-list.component';
+import {UpgradesListComponent} from './upgrades-list/upgrades-list.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule, MatProgressBarModule, MatToolbarModule} from '@angular/material';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        SelfCareListComponent,
+        TitleBarComponent,
+        FactoriesListComponent,
+        UpgradesListComponent
       ],
+      imports: [
+        BrowserModule,
+        MatButtonModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatListModule,
+        MatProgressBarModule
+      ]
     }).compileComponents();
   }));
 
@@ -14,18 +33,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'incremental'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('incremental');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to incremental!');
   });
 });
