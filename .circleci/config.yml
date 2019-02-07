@@ -7,28 +7,28 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-npm
+          name: Install latest version of npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: install local dependencies
+          name: Install local dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
-          name: run linter
-          command: npm lint
+          name: Run linter
+          command: npm run lint
       - run:
-          name: run test suite
-          command: npm test
+          name: Run test suite
+          command: npm run test
       - run:
-          name: build
+          name: Build
           command: ng build --prod --base-href '/incremental/'
       - run:
-          name: deploy to github pages
+          name: Deploy to github pages if on master
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 npx angular-cli-ghpages --dir=dist/incremental
