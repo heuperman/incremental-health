@@ -12,7 +12,7 @@
     <mat-card-actions>
       <button mat-flat-button color="primary" class="self-care-button"
               [disabled]="timers[stage.title] > 0"
-              (click)="gameDataService.reduceStress(stage.power); startTimer(stage.title, stage.timerSpeed)">
+              (click)="startCare(stage)">
         {{stage.buttonText}}
       </button>
     </mat-card-actions>

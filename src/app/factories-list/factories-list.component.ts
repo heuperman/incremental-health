@@ -22,11 +22,14 @@ export class FactoriesListComponent implements OnInit {
 
   stageUnlocked(factory: Factory): boolean {
     const previousStage = this.factoryService.getPreviousStage(factory);
+    let unlocked;
     if (previousStage) {
-      return this.gameDataService.getDestress() > factory.requiredDestress;
+      unlocked = this.gameDataService.previouslyUnlocked(factory.title) || this.gameDataService.getDestress() > factory.requiredDestress;
     } else {
-      return true;
+      unlocked = true;
     }
+    if (unlocked) { this.gameDataService.saveUnlock(factory.title); }
+    return unlocked;
   }
 
   changeHours(factory: Factory, amount: number) {

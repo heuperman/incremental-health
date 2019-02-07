@@ -15,13 +15,14 @@ export class GameDataService {
   private hoursAvailable = 4;
   private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   private upgradesPurchased = [0];
+  private stagesUnlocked = [];
 
   constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
 
   startProduction() {
     setInterval(() => {
       this.score += this.calculateProduction() / 10;
-      this.stress += this.calculateStressIncrease() / 10;
+      this.destress -= this.calculateStressIncrease() / 10;
       this.checkAvailability();
     }, 100);
   }
@@ -33,10 +34,12 @@ export class GameDataService {
     }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
+      const index = this.factoryService.getFactories().indexOf(factory);
       production += factory.baseProduction
-        * this.getMultiplier(factory, upgradesToApply)
-        * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
+        * this.getMultiplier(index, upgradesToApply)
+        * this.factoriesPurchased[index];
     }
+    console.log(production);
     return production;
   }
 
@@ -48,13 +51,9 @@ export class GameDataService {
     return stressIncrease;
   }
 
-  getMultiplier(factory: Factory, upgradesToApply: Upgrade[]): number {
-    let totalMultiplier = Multipliers.base;
-    const upgrades =  upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factory.title) : [];
-    for (const upgrade of upgrades) {
-      totalMultiplier *= upgrade.multiplier;
-    }
-    return totalMultiplier;
+  getMultiplier(factoryIndex: number, upgradesToApply: Upgrade[]): number {
+    const upgrades =  upgradesToApply.filter(upgrade => upgrade.target === factoryIndex);
+    return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
 
   getScore(): number {
@@ -117,15 +116,23 @@ export class GameDataService {
     this.destress += amount;
   }
 
-  getStress() {
+  getStress(): number {
     return this.stress - this.destress;
   }
 
-  getDestress() {
+  getDestress(): number {
     return this.destress;
   }
 
-  getHoursAvailable() {
+  getHoursAvailable(): number {
     return this.hoursAvailable - this.factoriesPurchased.reduce((a, b) => a + b);
+  }
+
+  previouslyUnlocked(title: string): boolean {
+    return this.stagesUnlocked.includes(title);
+  }
+
+  saveUnlock(title: string) {
+    this.stagesUnlocked.push(title);
   }
 }

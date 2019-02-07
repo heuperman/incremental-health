@@ -10,17 +10,14 @@ export class UpgradeService {
 
   upgrades: Upgrade[] = [
     {title: 'buy a kettle', id: 1, price: 10, requiredFunds: 5},
-    {title: 'buy a bathtub', id: 2, price: 20, requiredFunds: 10},
-    {title: 'double first', id: 5, target: 'first', multiplier: 2, price: 50, requiredLevel: 10},
-    {title: 'double second', id: 6 , target: 'second', multiplier: 2, price: 1000, requiredLevel: 10},
-    {title: 'double third', id: 7, target: 'third', multiplier: 2, price: 2E4, requiredLevel: 10},
-    {title: 'double fourth', id: 8 , target: 'fourth', multiplier: 2, price: 4E5, requiredLevel: 10},
-    {title: 'double fifth', id: 9 , target: 'fifth', multiplier: 2, price: 8E6, requiredLevel: 10},
-    {title: 'double first again', id: 10 , target: 'first', multiplier: 2, price: 5000, requiredLevel: 25},
-    {title: 'double second again', id: 11 , target: 'second', multiplier: 2, price: 1E5, requiredLevel: 25},
-    {title: 'double third again', id: 12 , target: 'third', multiplier: 2, price: 2E6, requiredLevel: 25},
-    {title: 'double fourth again', id: 13 , target: 'fourth', multiplier: 2, price: 4E7, requiredLevel: 25},
-    {title: 'double fifth again', id: 14 , target: 'fifth', multiplier: 2, price: 8E8, requiredLevel: 25}
+    {title: 'buy a bathtub', id: 2, price: 100, requiredFunds: 50},
+    {title: 'hire  a massage therapist', id: 3, price: 1000, requiredFunds: 500},
+    {title: 'sign up for the local spa', id: 4, price: 1E5, requiredFunds: 5000},
+    {title: 'more leashes', id: 5, target: 0, price: 50, requiredFunds: 25},
+    {title: 'target richer parents', id: 6 , target: 1, price: 500, requiredFunds: 250},
+    {title: 'get an e-bike', id: 7, target: 2, price: 5000, requiredFunds: 2500},
+    {title: 'drive a luxury car', id: 8, target: 3, price: 5E4, requiredFunds: 25000},
+    {title: 'install twin ovens', id: 9, target: 4, price: 5E5, requiredFunds: 25E4}
   ];
   availableUpgrades: Upgrade[] = [];
 

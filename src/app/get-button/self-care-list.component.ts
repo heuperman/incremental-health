@@ -23,23 +23,23 @@ export class SelfCareListComponent implements OnInit {
     for (const stage of this.selfCareStages) {
       this.timers[stage.title] = 0;
     }
-    console.log(this.timers);
   }
 
   stageUnlocked(stage: SelfCare): boolean {
     return this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade);
   }
 
-  startTimer(title: string, speed: number) {
+  startCare(stage: SelfCare) {
     const interval = window.setInterval(() => {
-      this.timers[title] < 100 ? this.timers[title] += speed : this.stopTimer(title, interval);
+      this.timers[stage.title] < 100 ? this.timers[stage.title] += stage.timerSpeed : this.finishCare(stage, interval);
       }, 10);
   }
 
-  stopTimer(title: string, interval: number) {
+  finishCare(stage: SelfCare, interval: number) {
     clearInterval(interval);
     setTimeout(() => {
-      this.timers[title] = 0;
+      this.timers[stage.title] = 0;
+      this.gameDataService.reduceStress(stage.power);
     }, 400);
   }
 
