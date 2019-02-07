@@ -3,7 +3,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:11.5.0
+      - image: circleci/node:10.15.1-stretch-browsers
+        env:
+          - CHROME_BIN=/usr/bin/google-chrome
     steps:
       - checkout
       - run:
