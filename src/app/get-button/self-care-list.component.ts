@@ -26,7 +26,7 @@ export class SelfCareListComponent implements OnInit {
   }
 
   stageUnlocked(stage: SelfCare): boolean {
-    return this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade);
+    return stage.power > 1 ? this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade) : true;
   }
 
   startCare(stage: SelfCare) {
