@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GetButtonComponent } from './get-button.component';
+import { SelfCareListComponent } from './self-care-list.component';
 
-describe('GetButtonComponent', () => {
-  let component: GetButtonComponent;
-  let fixture: ComponentFixture<GetButtonComponent>;
+describe('SelfCareListComponent', () => {
+  let component: SelfCareListComponent;
+  let fixture: ComponentFixture<SelfCareListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GetButtonComponent ]
+      declarations: [ SelfCareListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GetButtonComponent);
+    fixture = TestBed.createComponent(SelfCareListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
