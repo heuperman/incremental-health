@@ -11,7 +11,7 @@ import { GameDataService } from '../game-data.service';
 export class UpgradesListComponent implements OnInit {
   upgrades: Upgrade[];
 
-  constructor(public gameDataService: GameDataService, public upgradeService: UpgradeService) {}
+  constructor(public gameDataService: GameDataService, public upgradeService: UpgradeService) { }
 
   ngOnInit() {
     this.upgrades = this.upgradeService.getAvailableUpgrades();

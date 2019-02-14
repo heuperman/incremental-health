@@ -9,11 +9,11 @@ import { Multipliers } from './multipliers';
   providedIn: 'root'
 })
 export class GameDataService {
-  private stress = 1E6;
-  private destress = 0;
+  private baseStress = 1E6;
+  private stressReduction = 0;
   private score = 0;
   private hoursAvailable = 4;
-  private factoriesPurchased = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  private hoursWorkedPerFactory = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   private upgradesPurchased = [];
   private stagesUnlocked = [];
 
@@ -22,7 +22,7 @@ export class GameDataService {
   startProduction() {
     setInterval(() => {
       this.score += this.calculateProduction() / 10;
-      this.destress -= this.calculateStressIncrease() / 10;
+      this.stressReduction -= this.calculateStressIncrease() / 10;
       this.checkAvailability();
     }, 100);
   }
@@ -37,7 +37,7 @@ export class GameDataService {
       const index = this.factoryService.getFactories().indexOf(factory);
       production += factory.baseProduction
         * this.getMultiplier(index, upgradesToApply)
-        * this.factoriesPurchased[index];
+        * this.hoursWorkedPerFactory[index];
     }
     return production;
   }
@@ -45,7 +45,7 @@ export class GameDataService {
   calculateStressIncrease() {
     let stressIncrease = 0;
     for (const factory of this.factoryService.getFactories()) {
-      stressIncrease += factory.baseProduction * this.factoriesPurchased[this.factoryService.getFactories().indexOf(factory)];
+      stressIncrease += factory.baseProduction * this.hoursWorkedPerFactory[this.factoryService.getFactoryIndex(factory)];
     }
     return stressIncrease;
   }
@@ -63,13 +63,13 @@ export class GameDataService {
     this.score -= price;
   }
 
-  getAmountPurchased(factory: Factory): number {
+  getHoursWorked(factory: Factory): number {
     const index = this.factoryService.getFactories().indexOf(factory);
-    return this.factoriesPurchased[index] || 0;
+    return this.hoursWorkedPerFactory[index] || 0;
   }
 
-  updateHours(index: number, amount: number) {
-    this.factoriesPurchased[index] += amount;
+  updateHoursWorked(index: number, hours: number) {
+    this.hoursWorkedPerFactory[index] += hours;
   }
 
   addUpgradePurchased(upgrade: Upgrade) {
@@ -84,8 +84,8 @@ export class GameDataService {
   saveData() {
     const gameData = {
       score: this.score,
-      destress: this.destress,
-      factoriesPurchased: this.factoriesPurchased,
+      stressReduction: this.stressReduction,
+      hoursWorkedPerFactory: this.hoursWorkedPerFactory,
       upgradesPurchased: this.upgradesPurchased
     };
     localStorage.setItem('gameData', JSON.stringify(gameData));
@@ -95,8 +95,8 @@ export class GameDataService {
     const loadedData = JSON.parse(localStorage.getItem('gameData'));
     if (loadedData) {
       this.score = loadedData.score;
-      this.destress = loadedData.destress;
-      this.factoriesPurchased = loadedData.factoriesPurchased;
+      this.stressReduction = loadedData.stressReduction;
+      this.hoursWorkedPerFactory = loadedData.hoursWorkedPerFactory;
       this.upgradesPurchased = loadedData.upgradesPurchased;
     }
   }
@@ -112,19 +112,19 @@ export class GameDataService {
   }
 
   reduceStress(amount: number) {
-    this.destress += amount;
+    this.stressReduction += amount;
   }
 
   getStress(): number {
-    return this.stress - this.destress;
+    return this.baseStress - this.stressReduction;
   }
 
-  getDestress(): number {
-    return this.destress;
+  getStressReduction(): number {
+    return this.stressReduction;
   }
 
   getHoursAvailable(): number {
-    return this.hoursAvailable - this.factoriesPurchased.reduce((a, b) => a + b);
+    return this.hoursAvailable - this.hoursWorkedPerFactory.reduce((a, b) => a + b);
   }
 
   previouslyUnlocked(title: string): boolean {

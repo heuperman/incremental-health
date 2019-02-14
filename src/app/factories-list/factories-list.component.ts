@@ -21,20 +21,17 @@ export class FactoriesListComponent implements OnInit {
   }
 
   stageUnlocked(factory: Factory): boolean {
-    const previousStage = this.factoryService.getPreviousStage(factory);
-    let unlocked;
-    if (previousStage) {
-      unlocked = this.gameDataService.previouslyUnlocked(factory.title) || this.gameDataService.getDestress() > factory.requiredDestress;
-    } else {
-      unlocked = true;
+    if (this.gameDataService.getStressReduction() > factory.requiredStressReduction) {
+      this.gameDataService.saveUnlock(factory.title);
     }
-    if (unlocked) { this.gameDataService.saveUnlock(factory.title); }
-    return unlocked;
+    return this.factoryService.getFactoryIndex(factory) === 0
+      || this.gameDataService.previouslyUnlocked(factory.title)
+      || this.gameDataService.getStressReduction() > factory.requiredStressReduction;
   }
 
   changeHours(factory: Factory, amount: number) {
-    const index = this.factoryService.getFactories().indexOf(factory);
-    this.gameDataService.updateHours(index, amount);
+    const index = this.factoryService.getFactoryIndex(factory);
+    this.gameDataService.updateHoursWorked(index, amount);
   }
 
   increaseDisabled(): boolean {
@@ -42,6 +39,6 @@ export class FactoriesListComponent implements OnInit {
   }
 
   decreaseDisabled(factory: Factory): boolean {
-    return this.gameDataService.getAmountPurchased(factory) < 1;
+    return this.gameDataService.getHoursWorked(factory) < 1;
   }
 }
