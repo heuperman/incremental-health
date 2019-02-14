@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import { GameDataService } from '../game-data.service';
-import { SelfCareService } from '../self-care.service';
-import { SelfCare } from '../self-care';
+import { GameDataService } from '../services/game-data.service';
+import { SelfCareService } from '../services/self-care.service';
+import { SelfCare } from '../interfaces/self-care';
 
 @Component({
   selector: 'app-get-button',
-  templateUrl: './self-care-list.component.html',
-  styleUrls: ['./self-care-list.component.css']
+  templateUrl: './self-care-list.component.html'
 })
 export class SelfCareListComponent implements OnInit {
   selfCareStages: SelfCare[];

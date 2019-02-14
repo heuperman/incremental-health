@@ -1,1 +1,50 @@
 @import "theme";
+
+.title-bar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.container {
+  margin-top: 72px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.number-display {
+  margin-left: 20px;
+}
+
+.actionSection {
+  flex-basis: auto;
+}
+
+.upgradeSection {
+  flex-grow: 100;
+}
+
+.list-header {
+  background-color: #fafafa;
+}
+
+.action-card {
+  width: 280px;
+  margin: 10px;
+}
+
+.action-button {
+  width: 100%;
+}
+
+.factory-button {
+  width: 49%
+}

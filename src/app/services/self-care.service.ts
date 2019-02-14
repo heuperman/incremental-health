@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SelfCare } from './self-care';
+import { SelfCare } from '../interfaces/self-care';
 
 @Injectable({
   providedIn: 'root'

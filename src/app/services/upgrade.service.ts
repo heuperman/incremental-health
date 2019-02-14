@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Upgrade } from './upgrade';
+import { Upgrade } from '../interfaces/upgrade';
 
 @Injectable({
   providedIn: 'root'

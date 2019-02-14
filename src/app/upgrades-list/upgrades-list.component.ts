@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UpgradeService } from '../upgrade.service';
-import { Upgrade } from '../upgrade';
-import { GameDataService } from '../game-data.service';
+import { UpgradeService } from '../services/upgrade.service';
+import { Upgrade } from '../interfaces/upgrade';
+import { GameDataService } from '../services/game-data.service';
 
 @Component({
   selector: 'app-upgrades-list',
-  templateUrl: './upgrades-list.component.html',
-  styleUrls: ['./upgrades-list.component.css']
+  templateUrl: './upgrades-list.component.html'
 })
 export class UpgradesListComponent implements OnInit {
   upgrades: Upgrade[];

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Factory } from './factory';
+import { Factory } from '../interfaces/factory';
 import { FactoryService } from './factory.service';
-import { Upgrade } from './upgrade';
+import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
-import { Multipliers } from './multipliers';
+import { Multipliers } from '../interfaces/multipliers';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class GameDataService {
     }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
-      const index = this.factoryService.getFactories().indexOf(factory);
+      const index = this.factoryService.getFactoryIndex(factory);
       production += factory.baseProduction
         * this.getMultiplier(index, upgradesToApply)
         * this.hoursWorkedPerFactory[index];
@@ -64,7 +64,7 @@ export class GameDataService {
   }
 
   getHoursWorked(factory: Factory): number {
-    const index = this.factoryService.getFactories().indexOf(factory);
+    const index = this.factoryService.getFactoryIndex(factory);
     return this.hoursWorkedPerFactory[index] || 0;
   }
 

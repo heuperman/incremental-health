@@ -1,13 +1,4 @@
-.factory-card {
-  width: 280px;
-  margin: 10px;
-}
-
 .card-actions {
   display: flex;
   justify-content: space-between;
-}
-
-button {
-  width: 49%;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Factory } from '../factory';
-import { FactoryService } from '../factory.service';
-import { GameDataService } from '../game-data.service';
+import { Factory } from '../interfaces/factory';
+import { FactoryService } from '../services/factory.service';
+import { GameDataService } from '../services/game-data.service';
 
 @Component({
   selector: 'app-factories-list',

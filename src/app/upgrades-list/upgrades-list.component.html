@@ -1,13 +1,13 @@
-<mat-toolbar>shopping therapy</mat-toolbar>
+<mat-toolbar class="list-header">shopping therapy</mat-toolbar>
 
 <ng-container *ngFor="let upgrade of upgrades">
-  <mat-card class="upgrade-card">
+  <mat-card class="action-card">
     <mat-card-header>
       <mat-card-title>{{upgrade.title}}</mat-card-title>
       <mat-card-subtitle>{{upgrade.title}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-      <button class="upgrade-button" mat-stroked-button color="primary"
+      <button class="action-button" mat-flat-button color="accent"
               [disabled]="upgrade.price>gameDataService.getScore()"
               (click)="buyUpgrade(upgrade)">
         upgrade - £{{upgrade.price | number: '1.2-2'}}

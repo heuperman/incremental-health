@@ -1,16 +1,16 @@
-<mat-toolbar>self-care</mat-toolbar>
+<mat-toolbar class="list-header">self-care</mat-toolbar>
 
 <ng-container *ngFor="let stage of selfCareStages">
-  <mat-card class="self-care-card" *ngIf="stageUnlocked(stage)">
+  <mat-card class="action-card" *ngIf="stageUnlocked(stage)">
     <mat-card-header>
       <mat-card-title>{{stage.title}}</mat-card-title>
       <mat-card-subtitle>reduce stress by: {{stage.power}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-progress-bar mode="determinate" [value]=timers[stage.title]></mat-progress-bar>
+      <mat-progress-bar mode="determinate" color="accent" [value]=timers[stage.title]></mat-progress-bar>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button color="primary" class="self-care-button"
+      <button mat-flat-button color="primary" class="action-button"
               [disabled]="timers[stage.title] > 0"
               (click)="startCare(stage)">
         {{stage.buttonText}}
