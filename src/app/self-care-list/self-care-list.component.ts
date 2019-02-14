@@ -26,12 +26,12 @@ export class SelfCareListComponent implements OnInit {
   }
 
   stageUnlocked(stage: SelfCare): boolean {
-    return stage.power > 1 ? this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade) : true;
+    return stage.power === 1 || this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade);
   }
 
   startCare(stage: SelfCare) {
     const interval = window.setInterval(() => {
-      this.timers[stage.title] < 100 ? this.timers[stage.title] += stage.timerSpeed : this.finishCare(stage, interval);
+      this.timers[stage.title] < 100 ? this.timers[stage.title] += stage.timerSpeed / 100 : this.finishCare(stage, interval);
       }, 10);
   }
 
@@ -40,7 +40,7 @@ export class SelfCareListComponent implements OnInit {
     setTimeout(() => {
       this.timers[stage.title] = 0;
       this.gameDataService.reduceStress(stage.power);
-    }, 400);
+    }, 200);
   }
 
 }

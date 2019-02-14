@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FactoriesListComponent } from './factories-list.component';
 import {AppComponent} from '../app.component';
-import {SelfCareListComponent} from '../get-button/self-care-list.component';
+import {SelfCareListComponent} from '../self-care-list/self-care-list.component';
 import {TitleBarComponent} from '../title-bar/title-bar.component';
 import {UpgradesListComponent} from '../upgrades-list/upgrades-list.component';
 import {BrowserModule} from '@angular/platform-browser';

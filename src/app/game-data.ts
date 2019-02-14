@@ -2,7 +2,7 @@ import {Upgrade} from './upgrade';
 
 export interface GameData {
   score: number;
-  destress: number;
+  stressReduction: number;
   factoriesPurchased: number[];
   upgradesPurchased: Upgrade[];
 }

@@ -9,7 +9,7 @@ import {
   MatProgressBarModule,
   MatToolbarModule
 } from '@angular/material';
-import { SelfCareListComponent } from './get-button/self-care-list.component';
+import { SelfCareListComponent } from './self-care-list/self-care-list.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
