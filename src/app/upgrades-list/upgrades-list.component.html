@@ -10,7 +10,7 @@
       <button class="action-button" mat-flat-button color="accent"
               [disabled]="upgrade.price>gameDataService.getScore()"
               (click)="buyUpgrade(upgrade)">
-        upgrade - £{{upgrade.price | number: '1.2-2'}}
+        purchase - £{{upgrade.price | number: '1.2-2'}}
       </button>
     </mat-card-actions>
   </mat-card>

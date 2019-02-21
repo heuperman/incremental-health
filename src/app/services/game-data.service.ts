@@ -4,6 +4,7 @@ import { FactoryService } from './factory.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { Multipliers } from '../interfaces/multipliers';
+import {GameData} from '../interfaces/game-data';
 
 @Injectable({
   providedIn: 'root'
@@ -82,22 +83,24 @@ export class GameDataService {
   }
 
   saveData() {
-    const gameData = {
+    const gameData: GameData = {
       score: this.score,
       stressReduction: this.stressReduction,
       hoursWorkedPerFactory: this.hoursWorkedPerFactory,
-      upgradesPurchased: this.upgradesPurchased
+      upgradesPurchased: this.upgradesPurchased,
+      stagesUnlocked: this.stagesUnlocked
     };
     localStorage.setItem('gameData', JSON.stringify(gameData));
   }
 
   loadData() {
-    const loadedData = JSON.parse(localStorage.getItem('gameData'));
+    const loadedData: GameData = JSON.parse(localStorage.getItem('gameData'));
     if (loadedData) {
       this.score = loadedData.score;
       this.stressReduction = loadedData.stressReduction;
       this.hoursWorkedPerFactory = loadedData.hoursWorkedPerFactory;
       this.upgradesPurchased = loadedData.upgradesPurchased;
+      this.stagesUnlocked = loadedData.stagesUnlocked;
     }
   }
 
