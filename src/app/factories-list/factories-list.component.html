@@ -9,10 +9,14 @@
     <mat-card-actions class="card-actions">
       <button mat-button
               class="factory-button"
+              matTooltip="up £ gains by {{factory.baseProduction}}/s and&#13; up stress increase by {{factory.baseProduction}}/s"
+              matTooltipClass="tooltip"
               [disabled]="increaseDisabled()"
               (click)="changeHours(factory, 1)">work more</button>
       <button mat-button
               class="factory-button"
+              matTooltip="reduce £ gains by {{factory.baseProduction}}/s and&#13; reduce stress increase by {{factory.baseProduction}}/s"
+              matTooltipClass="tooltip"
               [disabled]="decreaseDisabled(factory)"
               (click)="changeHours(factory, -1)">work less</button>
     </mat-card-actions>
