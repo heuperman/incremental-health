@@ -29,15 +29,11 @@ export class GameDataService {
   }
 
   calculateProduction(): number {
-    let upgradesToApply: Upgrade[];
-    for (const upgradeId of this.upgradesPurchased) {
-      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.id === upgradeId);
-    }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
       const index = this.factoryService.getFactoryIndex(factory);
       production += factory.baseProduction
-        * this.getMultiplier(index, upgradesToApply)
+        * this.getMultiplier(index)
         * this.hoursWorkedPerFactory[index];
     }
     return production;
@@ -51,7 +47,11 @@ export class GameDataService {
     return stressIncrease;
   }
 
-  getMultiplier(factoryIndex: number, upgradesToApply: Upgrade[]): number {
+  getMultiplier(factoryIndex: number): number {
+    const upgradesToApply: Upgrade[] = [];
+    for (const upgradeId of this.upgradesPurchased) {
+      upgradesToApply.push(this.upgradeService.getUpgrades().find(upgrade => upgrade.id === upgradeId));
+    }
     const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factoryIndex) : [];
     return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
