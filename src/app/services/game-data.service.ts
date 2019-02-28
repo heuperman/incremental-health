@@ -4,6 +4,7 @@ import { FactoryService } from './factory.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { Multipliers } from '../interfaces/multipliers';
+import {GameData} from '../interfaces/game-data';
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +29,11 @@ export class GameDataService {
   }
 
   calculateProduction(): number {
-    let upgradesToApply: Upgrade[];
-    for (const upgradeId of this.upgradesPurchased) {
-      upgradesToApply = this.upgradeService.getUpgrades().filter(upgrade => upgrade.id === upgradeId);
-    }
     let production = 0;
     for (const factory of this.factoryService.getFactories()) {
       const index = this.factoryService.getFactoryIndex(factory);
       production += factory.baseProduction
-        * this.getMultiplier(index, upgradesToApply)
+        * this.getMultiplier(index)
         * this.hoursWorkedPerFactory[index];
     }
     return production;
@@ -50,7 +47,11 @@ export class GameDataService {
     return stressIncrease;
   }
 
-  getMultiplier(factoryIndex: number, upgradesToApply: Upgrade[]): number {
+  getMultiplier(factoryIndex: number): number {
+    const upgradesToApply: Upgrade[] = [];
+    for (const upgradeId of this.upgradesPurchased) {
+      upgradesToApply.push(this.upgradeService.getUpgrades().find(upgrade => upgrade.id === upgradeId));
+    }
     const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factoryIndex) : [];
     return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
@@ -82,22 +83,24 @@ export class GameDataService {
   }
 
   saveData() {
-    const gameData = {
+    const gameData: GameData = {
       score: this.score,
       stressReduction: this.stressReduction,
       hoursWorkedPerFactory: this.hoursWorkedPerFactory,
-      upgradesPurchased: this.upgradesPurchased
+      upgradesPurchased: this.upgradesPurchased,
+      stagesUnlocked: this.stagesUnlocked
     };
     localStorage.setItem('gameData', JSON.stringify(gameData));
   }
 
   loadData() {
-    const loadedData = JSON.parse(localStorage.getItem('gameData'));
+    const loadedData: GameData = JSON.parse(localStorage.getItem('gameData'));
     if (loadedData) {
       this.score = loadedData.score;
       this.stressReduction = loadedData.stressReduction;
       this.hoursWorkedPerFactory = loadedData.hoursWorkedPerFactory;
       this.upgradesPurchased = loadedData.upgradesPurchased;
+      this.stagesUnlocked = loadedData.stagesUnlocked;
     }
   }
 

@@ -41,4 +41,9 @@ export class FactoriesListComponent implements OnInit {
   decreaseDisabled(factory: Factory): boolean {
     return this.gameDataService.getHoursWorked(factory) < 1;
   }
+
+  getMultiplier(factory: Factory): number {
+    const factoryIndex = this.factoryService.getFactoryIndex(factory);
+    return this.gameDataService.getMultiplier(factoryIndex);
+  }
 }
