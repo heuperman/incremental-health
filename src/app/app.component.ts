@@ -6,6 +6,7 @@ import {GameDataService} from './services/game-data.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+  burnout = false;
 
   constructor(
     private gameDataService: GameDataService,
@@ -15,6 +16,8 @@ export class AppComponent implements OnInit {
     this.gameDataService.loadData();
     this.gameDataService.startProduction();
     this.gameDataService.checkAvailability();
+    console.log(this.gameDataService.getStress());
+    console.log(this.gameDataService.getStress() > 1000000);
   }
 
   @HostListener('window:beforeunload', ['$event'])

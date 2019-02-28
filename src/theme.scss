@@ -8,3 +8,12 @@ $warn: mat-palette($soft-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
+
+$burnout-primary: mat-palette($dark-red);
+$burnout-accent: mat-palette($dark-red);
+$burnout-warn: mat-palette($dark-red);
+$burnout-theme: mat-light-theme($burnout-primary, $burnout-accent, $burnout-warn);
+
+.burnout {
+  @include angular-material-theme($burnout-theme);
+}
