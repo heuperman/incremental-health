@@ -4,7 +4,7 @@ import { SelfCareService } from '../services/self-care.service';
 import { SelfCare } from '../interfaces/self-care';
 
 @Component({
-  selector: 'app-get-button',
+  selector: 'app-selfcare-list',
   templateUrl: './self-care-list.component.html'
 })
 export class SelfCareListComponent implements OnInit {

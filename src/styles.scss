@@ -4,9 +4,22 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.burnout-bar {
+  position: fixed;
+  left: 0;
+  top: 64px;
+  z-index: 99;
+  width: 100%;
+  text-align: center;
+}
+
+.burnout-warning {
+  margin: 0 auto;
 }
 
 .container {

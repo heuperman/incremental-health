@@ -14,6 +14,7 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { FactoriesListComponent } from './factories-list/factories-list.component';
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TitleBarComponent,
     FactoriesListComponent,
     UpgradesListComponent,
+    BurnoutBarComponent,
   ],
   imports: [
     BrowserModule,

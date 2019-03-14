@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Factory } from '../interfaces/factory';
 import { FactoryService } from '../services/factory.service';
 import { GameDataService } from '../services/game-data.service';
@@ -10,6 +10,8 @@ import { GameDataService } from '../services/game-data.service';
 })
 export class FactoriesListComponent implements OnInit {
   factories: Factory[];
+
+  @Input() burnout: boolean;
 
   constructor(
     public factoryService: FactoryService,
@@ -35,7 +37,7 @@ export class FactoriesListComponent implements OnInit {
   }
 
   increaseDisabled(): boolean {
-    return this.gameDataService.getHoursAvailable() < 1;
+    return this.gameDataService.getHoursAvailable() < 1 || this.burnout;
   }
 
   decreaseDisabled(factory: Factory): boolean {
