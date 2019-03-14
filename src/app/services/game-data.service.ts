@@ -187,7 +187,6 @@ export class GameDataService {
 
       dialogRef.afterClosed().subscribe(reset => {
         if (reset) { this.applyDefaultData(); }
-        this.victoryAchieved = !reset;
       });
     }
   }

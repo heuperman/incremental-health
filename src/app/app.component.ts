@@ -24,6 +24,6 @@ export class AppComponent implements OnInit {
 
   isBurnout(): boolean {
     this.gameDataService.burnout = this.gameDataService.getStress() > this.gameDataService.baseStress;
-    return this.gameDataService.getStress() > this.gameDataService.baseStress;
+    return this.gameDataService.burnout;
   }
 }
