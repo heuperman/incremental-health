@@ -1,5 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GameDataService} from './services/game-data.service';
+import {MatDialog} from '@angular/material';
+import {VictoryDialogComponent} from './victory-dialog/victory-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +11,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private gameDataService: GameDataService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -25,5 +28,13 @@ export class AppComponent implements OnInit {
   isBurnout(): boolean {
     this.gameDataService.burnout = this.gameDataService.getStress() > 1000000;
     return this.gameDataService.getStress() > 1000000;
+  }
+
+  victoryDialog() {
+    this.dialog.open(VictoryDialogComponent, {
+      height: 'auto',
+      width: 'auto',
+      autoFocus: false
+    });
   }
 }
