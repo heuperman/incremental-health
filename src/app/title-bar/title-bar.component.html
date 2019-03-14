@@ -1,6 +1,10 @@
-<mat-toolbar color="primary" class="title-bar mat-elevation-z1">
-  <span>{{title}}</span>
-  <span class="spacer"></span>
+<mat-toolbar color="primary"
+             class="title-bar mat-elevation-z1"
+             fxLayout="row"
+             fxLayoutAlign="end center"
+             fxLayoutAlign.xs="start center"
+             fxLayoutGap="20px">
+  <span fxHide.xs fxFlexAlign="start center" fxFlex="auto">{{title}}</span>
   <span class="number-display">moneys: £{{gameDataService.getScore() | number: '1.0-0'}}</span>
   <span class="number-display">stress: {{gameDataService.getStress() | number: '1.0-0'}}</span>
 </mat-toolbar>
