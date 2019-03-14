@@ -11,12 +11,13 @@ import {GameData} from '../interfaces/game-data';
 })
 export class GameDataService {
   private baseStress = 1E6;
-  private stressReduction = 0;
-  private score = 0;
   private hoursAvailable = 4;
-  private hoursWorkedPerFactory = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  private upgradesPurchased = [];
-  private stagesUnlocked = [];
+  private stressReduction: number;
+  private score: number;
+  private hoursWorkedPerFactory: number[];
+  private upgradesPurchased: number[];
+  private stagesUnlocked: string[];
+  public burnout: boolean;
 
   constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
 
@@ -25,6 +26,7 @@ export class GameDataService {
       this.score += this.calculateProduction() / 10;
       this.stressReduction -= this.calculateStressIncrease() / 10;
       this.checkAvailability();
+      this.checkBurnOut();
     }, 100);
   }
 
@@ -66,7 +68,7 @@ export class GameDataService {
 
   getHoursWorked(factory: Factory): number {
     const index = this.factoryService.getFactoryIndex(factory);
-    return this.hoursWorkedPerFactory[index] || 0;
+    return this.hoursWorkedPerFactory[index];
   }
 
   updateHoursWorked(index: number, hours: number) {
@@ -78,7 +80,7 @@ export class GameDataService {
     this.upgradeService.removeFromAvailableUpgrades(upgrade);
   }
 
-  getPurchasedUpgrades() {
+  getPurchasedUpgrades(): number[] {
     return this.upgradesPurchased;
   }
 
@@ -101,7 +103,20 @@ export class GameDataService {
       this.hoursWorkedPerFactory = loadedData.hoursWorkedPerFactory;
       this.upgradesPurchased = loadedData.upgradesPurchased;
       this.stagesUnlocked = loadedData.stagesUnlocked;
+    } else {
+      this.applyDefaultData();
     }
+  }
+
+  applyDefaultData() {
+    this.score = 0;
+    this.stressReduction = 0;
+    this.hoursWorkedPerFactory = [];
+    this.factoryService.getFactories().forEach(() => {
+      this.hoursWorkedPerFactory.push(0);
+    });
+    this.upgradesPurchased = [];
+    this.stagesUnlocked = [];
   }
 
   checkAvailability() {
@@ -136,5 +151,15 @@ export class GameDataService {
 
   saveUnlock(title: string) {
     if (!this.stagesUnlocked.includes(title)) { this.stagesUnlocked.push(title); }
+  }
+
+  checkBurnOut() {
+    if (this.burnout) {
+      for (const factory of this.factoryService.getFactories()) {
+        const index = this.factoryService.getFactoryIndex(factory);
+        const hours = this.hoursWorkedPerFactory[index];
+        this.updateHoursWorked(index, -hours);
+      }
+    }
   }
 }

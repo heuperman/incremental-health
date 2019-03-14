@@ -1,10 +1,10 @@
-<div [ngClass]="{'burnout': burnout}">
+<div [ngClass]="{'burnout': isBurnout()}">
   <app-title-bar class="title-bar"></app-title-bar>
-
   <div class="container">
-    <app-get-button class="actionSection"></app-get-button>
-    <app-factories-list class="actionSection"></app-factories-list>
+    <app-selfcare-list class="actionSection"></app-selfcare-list>
+    <app-factories-list class="actionSection" [burnout]="isBurnout()"></app-factories-list>
     <app-upgrades-list class="upgradeSection"></app-upgrades-list>
   </div>
+  <app-burnout-bar *ngIf="isBurnout()" class="burnout-bar"></app-burnout-bar>
 </div>
 
