@@ -26,8 +26,7 @@ export class FactoriesListComponent implements OnInit {
     if (this.gameDataService.getStressReduction() > factory.requiredStressReduction) {
       this.gameDataService.saveUnlock(factory.title);
     }
-    return this.factoryService.getFactoryIndex(factory) === 0
-      || this.gameDataService.previouslyUnlocked(factory.title)
+    return this.gameDataService.previouslyUnlocked(factory.title)
       || this.gameDataService.getStressReduction() > factory.requiredStressReduction;
   }
 

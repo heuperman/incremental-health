@@ -17,8 +17,8 @@ export class GameDataService {
   private score: number;
   private hoursWorkedPerFactory: number[];
   private upgradesPurchased: number[];
-  private stagesUnlocked: string[];
   private victoryAchieved: boolean;
+  public stagesUnlocked: string[];
   public baseStress = 1E6;
   public burnout: boolean;
 
@@ -101,7 +101,7 @@ export class GameDataService {
       stagesUnlocked: this.stagesUnlocked,
       victoryAchieved: this.victoryAchieved
     };
-    localStorage.setItem('gameData', JSON.stringify(gameData));
+     localStorage.setItem('gameData', JSON.stringify(gameData));
   }
 
   loadData() {
