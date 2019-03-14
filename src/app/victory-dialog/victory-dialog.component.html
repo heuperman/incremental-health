@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>stress free!</h1>
+<div mat-dialog-content class="mat-typography">
+  <p>congratulations, you have successfully calmed yourself down</p>
+  <p>thank you for playing</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog(true)">start over</button>
+  <button mat-stroked-button (click)="closeDialog(false)">keep going</button>
+</div>

@@ -4,22 +4,28 @@ import { FactoryService } from './factory.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { Multipliers } from '../interfaces/multipliers';
-import {GameData} from '../interfaces/game-data';
+import { GameData } from '../interfaces/game-data';
+import { VictoryDialogComponent } from '../victory-dialog/victory-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameDataService {
-  private baseStress = 1E6;
-  private hoursAvailable = 4;
+  private hoursAvailable: number;
   private stressReduction: number;
   private score: number;
   private hoursWorkedPerFactory: number[];
   private upgradesPurchased: number[];
-  private stagesUnlocked: string[];
+  private victoryAchieved: boolean;
+  public stagesUnlocked: string[];
+  public baseStress = 1E6;
   public burnout: boolean;
 
-  constructor(private factoryService: FactoryService, private upgradeService: UpgradeService) { }
+  constructor(
+    private factoryService: FactoryService,
+    private upgradeService: UpgradeService,
+    public dialog: MatDialog) { }
 
   startProduction() {
     setInterval(() => {
@@ -27,6 +33,7 @@ export class GameDataService {
       this.stressReduction -= this.calculateStressIncrease() / 10;
       this.checkAvailability();
       this.checkBurnOut();
+      this.checkVictory();
     }, 100);
   }
 
@@ -88,11 +95,13 @@ export class GameDataService {
     const gameData: GameData = {
       score: this.score,
       stressReduction: this.stressReduction,
+      hoursAvailable: this.hoursAvailable,
       hoursWorkedPerFactory: this.hoursWorkedPerFactory,
       upgradesPurchased: this.upgradesPurchased,
-      stagesUnlocked: this.stagesUnlocked
+      stagesUnlocked: this.stagesUnlocked,
+      victoryAchieved: this.victoryAchieved
     };
-    localStorage.setItem('gameData', JSON.stringify(gameData));
+     localStorage.setItem('gameData', JSON.stringify(gameData));
   }
 
   loadData() {
@@ -100,9 +109,11 @@ export class GameDataService {
     if (loadedData) {
       this.score = loadedData.score;
       this.stressReduction = loadedData.stressReduction;
+      this.hoursAvailable = loadedData.hoursAvailable;
       this.hoursWorkedPerFactory = loadedData.hoursWorkedPerFactory;
       this.upgradesPurchased = loadedData.upgradesPurchased;
       this.stagesUnlocked = loadedData.stagesUnlocked;
+      this.victoryAchieved = loadedData.victoryAchieved;
     } else {
       this.applyDefaultData();
     }
@@ -111,12 +122,14 @@ export class GameDataService {
   applyDefaultData() {
     this.score = 0;
     this.stressReduction = 0;
+    this.hoursAvailable = 4;
     this.hoursWorkedPerFactory = [];
     this.factoryService.getFactories().forEach(() => {
       this.hoursWorkedPerFactory.push(0);
     });
     this.upgradesPurchased = [];
     this.stagesUnlocked = [];
+    this.victoryAchieved = false;
   }
 
   checkAvailability() {
@@ -160,6 +173,21 @@ export class GameDataService {
         const hours = this.hoursWorkedPerFactory[index];
         this.updateHoursWorked(index, -hours);
       }
+    }
+  }
+
+  checkVictory() {
+    if (this.stressReduction >= this.baseStress && !this.victoryAchieved) {
+      const dialogRef = this.dialog.open(VictoryDialogComponent, {
+        height: 'auto',
+        width: 'auto',
+        autoFocus: false
+      });
+      this.victoryAchieved = true;
+
+      dialogRef.afterClosed().subscribe(reset => {
+        if (reset) { this.applyDefaultData(); }
+      });
     }
   }
 }

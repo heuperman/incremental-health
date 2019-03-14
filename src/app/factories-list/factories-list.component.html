@@ -22,5 +22,14 @@
 </ng-container>
 
 <mat-card class="action-card">
-  <mat-card-subtitle>Available hours: {{gameDataService.getHoursAvailable()}}</mat-card-subtitle>
+  <mat-card-subtitle *ngIf="gameDataService.stagesUnlocked.length; else tooStressed">
+    Available hours: {{gameDataService.getHoursAvailable()}}
+  </mat-card-subtitle>
 </mat-card>
+
+<ng-template #tooStressed>
+  <mat-card-subtitle>
+    too stressed to work right now
+  </mat-card-subtitle>
+</ng-template>
+

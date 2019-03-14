@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
+  MatDialogModule,
   MatGridListModule,
   MatListModule,
   MatProgressBarModule,
@@ -15,6 +16,7 @@ import { FactoriesListComponent } from './factories-list/factories-list.componen
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
+import { VictoryDialogComponent } from './victory-dialog/victory-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
     FactoriesListComponent,
     UpgradesListComponent,
     BurnoutBarComponent,
+    VictoryDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,11 @@ import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
     MatToolbarModule,
     MatGridListModule,
     MatListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    VictoryDialogComponent
   ],
   providers: [
   ],
