@@ -7,7 +7,7 @@ import {
   MatDialogModule,
   MatGridListModule,
   MatListModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { SelfCareListComponent } from './self-care-list/self-care-list.component';
@@ -39,7 +39,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatListModule,
     MatProgressBarModule,
     MatDialogModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTabsModule
   ],
   entryComponents: [
     VictoryDialogComponent

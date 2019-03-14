@@ -1,35 +1,38 @@
-<mat-toolbar class="list-header">side hustles</mat-toolbar>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <mat-toolbar class="list-header" fxHide.xs>side hustles</mat-toolbar>
 
-<ng-container *ngFor="let factory of factories">
-  <mat-card class="action-card" *ngIf="stageUnlocked(factory)">
-    <mat-card-header>
-      <mat-card-title class="factory-title">{{factory.title}}</mat-card-title>
-      <mat-card-subtitle>hours worked: {{gameDataService.getHoursWorked(factory)}}</mat-card-subtitle>
-      <mat-card-subtitle>moneys gained: £{{factory.baseProduction * gameDataService.getHoursWorked(factory) * getMultiplier(factory)}}/s</mat-card-subtitle>
-      <mat-card-subtitle>stress increase: {{factory.baseProduction * gameDataService.getHoursWorked(factory)}}/s</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-actions class="card-actions">
-      <button mat-button
-              class="factory-button"
-              [disabled]="increaseDisabled()"
-              (click)="changeHours(factory, 1)">work more</button>
-      <button mat-button
-              class="factory-button"
-              [disabled]="decreaseDisabled(factory)"
-              (click)="changeHours(factory, -1)">work less</button>
-    </mat-card-actions>
+  <ng-container *ngFor="let factory of factories">
+    <mat-card class="action-card" *ngIf="stageUnlocked(factory)">
+      <mat-card-header>
+        <mat-card-title class="factory-title">{{factory.title}}</mat-card-title>
+        <mat-card-subtitle>hours worked: {{gameDataService.getHoursWorked(factory)}}</mat-card-subtitle>
+        <mat-card-subtitle>moneys gained: £{{factory.baseProduction * gameDataService.getHoursWorked(factory) * getMultiplier(factory)}}/s</mat-card-subtitle>
+        <mat-card-subtitle>stress increase: {{factory.baseProduction * gameDataService.getHoursWorked(factory)}}/s</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions class="card-actions">
+        <button mat-button
+                class="factory-button"
+                [disabled]="increaseDisabled()"
+                (click)="changeHours(factory, 1)">work more</button>
+        <button mat-button
+                class="factory-button"
+                [disabled]="decreaseDisabled(factory)"
+                (click)="changeHours(factory, -1)">work less</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <mat-card class="action-card">
+    <mat-card-subtitle *ngIf="gameDataService.stagesUnlocked.length; else tooStressed">
+      Available hours: {{gameDataService.getHoursAvailable()}}
+    </mat-card-subtitle>
   </mat-card>
-</ng-container>
 
-<mat-card class="action-card">
-  <mat-card-subtitle *ngIf="gameDataService.stagesUnlocked.length; else tooStressed">
-    Available hours: {{gameDataService.getHoursAvailable()}}
-  </mat-card-subtitle>
-</mat-card>
+  <ng-template #tooStressed>
+    <mat-card-subtitle>
+      too stressed to work right now
+    </mat-card-subtitle>
+  </ng-template>
+</div>
 
-<ng-template #tooStressed>
-  <mat-card-subtitle>
-    too stressed to work right now
-  </mat-card-subtitle>
-</ng-template>
 

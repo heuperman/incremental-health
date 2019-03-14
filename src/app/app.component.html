@@ -1,10 +1,24 @@
 <div [ngClass]="{'burnout': isBurnout()}">
   <app-title-bar class="title-bar"></app-title-bar>
-  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start">
-    <app-selfcare-list class="actionSection"></app-selfcare-list>
-    <app-factories-list class="actionSection" [burnout]="isBurnout()"></app-factories-list>
-    <app-upgrades-list class="upgradeSection"></app-upgrades-list>
-  </div>
   <app-burnout-bar *ngIf="isBurnout()" class="burnout-bar"></app-burnout-bar>
+
+  <div class="container" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start" fxHide.xs>
+    <app-selfcare-list></app-selfcare-list>
+    <app-factories-list [burnout]="isBurnout()"></app-factories-list>
+    <app-upgrades-list></app-upgrades-list>
+  </div>
+
+  <mat-tab-group mat-stretch-tabs class="container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" fxHide.gt-xs dynamicHeight>
+    <mat-tab label="self-care">
+      <app-selfcare-list></app-selfcare-list>
+    </mat-tab>
+    <mat-tab label="side-hustles">
+      <app-factories-list [burnout]="isBurnout()"></app-factories-list>
+    </mat-tab>
+    <mat-tab label="upgrades">
+      <app-upgrades-list></app-upgrades-list>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+
 
