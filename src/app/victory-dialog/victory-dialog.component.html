@@ -4,6 +4,6 @@
   <p>thank you for playing</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="close()">start over</button>
-  <button mat-stroked-button (click)="close()">keep going</button>
+  <button mat-button (click)="closeDialog(true)">start over</button>
+  <button mat-stroked-button (click)="closeDialog(false)">keep going</button>
 </div>

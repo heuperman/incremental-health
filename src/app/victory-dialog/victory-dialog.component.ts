@@ -10,8 +10,7 @@ export class VictoryDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<VictoryDialogComponent>) { }
 
-  close() {
-    this.dialogRef.close();
+  closeDialog(reset: boolean) {
+    this.dialogRef.close(reset);
   }
-
 }
