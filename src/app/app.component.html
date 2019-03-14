@@ -2,7 +2,7 @@
   <app-title-bar class="title-bar"></app-title-bar>
   <app-burnout-bar *ngIf="isBurnout()" class="burnout-bar"></app-burnout-bar>
 
-  <div class="container" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start" fxHide.xs>
+  <div class="container" [class.bottom-margin]="isBurnout()" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start" fxHide.xs>
     <app-selfcare-list></app-selfcare-list>
     <app-factories-list [burnout]="isBurnout()"></app-factories-list>
     <app-upgrades-list></app-upgrades-list>

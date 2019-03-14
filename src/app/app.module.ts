@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
 import { VictoryDialogComponent } from './victory-dialog/victory-dialog.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {LayoutModule} from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatProgressBarModule,
     MatDialogModule,
     FlexLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    LayoutModule
   ],
   entryComponents: [
     VictoryDialogComponent

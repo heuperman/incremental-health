@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-burnout-bar',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BurnoutBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
   }
 
+  isMobile(): boolean {
+    return this.breakpointObserver.isMatched('(max-width: 599px)');
+  }
 }
