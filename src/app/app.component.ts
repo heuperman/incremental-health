@@ -34,6 +34,14 @@ export class AppComponent implements OnInit {
     this.gameDataService.saveGameData(this.gameData);
   }
 
+  getScore() {
+    return this.gameDataService.getScore();
+  }
+
+  getStress() {
+    return this.gameDataService.getStress();
+  }
+
   startProduction() {
     setInterval(() => {
       this.gameData.score += this.calculateProduction() / 10;

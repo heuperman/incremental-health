@@ -1,5 +1,5 @@
 <div [class.burnout]="isBurnout()">
-  <app-title-bar class="title-bar" [score]="gameDataService.getScore()" [stress]="gameDataService.getStress()"></app-title-bar>
+  <app-title-bar class="title-bar" [score]="getScore()" [stress]="getStress()"></app-title-bar>
   <app-burnout-bar *ngIf="isBurnout()" class="burnout-bar"></app-burnout-bar>
 
   <div class="container" [class.burnout]="isBurnout()" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start" fxHide.xs>
