@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import { GameDataService } from '../services/game-data.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-title-bar',
   templateUrl: './title-bar.component.html'
 })
-export class TitleBarComponent implements OnInit {
+export class TitleBarComponent {
   title = 'incremental health';
 
-  constructor(public gameDataService: GameDataService) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
+  @Input() score: number;
+  @Input() stress: number;
 
 }
