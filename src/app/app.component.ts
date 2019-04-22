@@ -34,11 +34,11 @@ export class AppComponent implements OnInit {
     this.gameDataService.saveGameData(this.gameData);
   }
 
-  getScore() {
+  getScore(): number {
     return this.gameDataService.getScore();
   }
 
-  getStress() {
+  getStress(): number {
     return this.gameDataService.getStress();
   }
 
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
     return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
 
-  calculateStressIncrease() {
+  calculateStressIncrease(): number {
     let stressIncrease = 0;
     const factories = this.factoryService.getFactories();
     factories.forEach((factory, index) => {
