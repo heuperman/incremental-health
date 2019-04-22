@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameDataService } from '../services/game-data.service';
 import { SelfCareService } from '../services/self-care.service';
 import { SelfCare } from '../interfaces/self-care';
@@ -25,7 +25,7 @@ export class SelfCareListComponent implements OnInit {
   }
 
   stageUnlocked(stage: SelfCare): boolean {
-    return stage.power === 1 || this.gameDataService.getPurchasedUpgrades().includes(stage.requiredUpgrade);
+    return stage.power === 1 || this.gameDataService.getUpgradesPurchased().includes(stage.requiredUpgrade);
   }
 
   startCare(stage: SelfCare) {

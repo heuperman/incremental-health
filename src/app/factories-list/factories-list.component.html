@@ -5,26 +5,26 @@
     <mat-card class="action-card" *ngIf="stageUnlocked(factory)">
       <mat-card-header>
         <mat-card-title class="factory-title">{{factory.title}}</mat-card-title>
-        <mat-card-subtitle>hours worked: {{gameDataService.getHoursWorked(factory)}}</mat-card-subtitle>
-        <mat-card-subtitle>moneys gained: £{{factory.baseProduction * gameDataService.getHoursWorked(factory) * getMultiplier(factory)}}/s</mat-card-subtitle>
-        <mat-card-subtitle>stress increase: {{factory.baseProduction * gameDataService.getHoursWorked(factory)}}/s</mat-card-subtitle>
+        <mat-card-subtitle>hours worked: {{getHoursWorked(factory)}}</mat-card-subtitle>
+        <mat-card-subtitle>moneys gained: £{{factory.baseProduction * getHoursWorked(factory) * getMultiplier(factory)}}/s</mat-card-subtitle>
+        <mat-card-subtitle>stress increase: {{factory.baseProduction * getHoursWorked(factory)}}/s</mat-card-subtitle>
       </mat-card-header>
       <mat-card-actions class="card-actions">
         <button mat-button
                 class="factory-button"
-                [disabled]="increaseDisabled()"
+                [disabled]="isIncreaseDisabled()"
                 (click)="changeHours(factory, 1)">work more</button>
         <button mat-button
                 class="factory-button"
-                [disabled]="decreaseDisabled(factory)"
+                [disabled]="isDecreaseDisabled(factory)"
                 (click)="changeHours(factory, -1)">work less</button>
       </mat-card-actions>
     </mat-card>
   </ng-container>
 
   <mat-card class="action-card">
-    <mat-card-subtitle *ngIf="gameDataService.stagesUnlocked.length && !gameDataService.burnout; else tooStressed">
-      Available hours: {{gameDataService.getHoursAvailable()}}
+    <mat-card-subtitle *ngIf="isFirstStageUnlocked && !burnout; else tooStressed">
+      Available hours: {{getHoursAvailable()}}
     </mat-card-subtitle>
   </mat-card>
 
