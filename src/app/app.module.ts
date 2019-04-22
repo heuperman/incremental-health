@@ -7,7 +7,8 @@ import {
   MatDialogModule,
   MatGridListModule,
   MatListModule,
-  MatProgressBarModule, MatTabsModule,
+  MatProgressBarModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { SelfCareListComponent } from './self-care-list/self-care-list.component';
