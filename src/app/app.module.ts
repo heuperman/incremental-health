@@ -8,6 +8,7 @@ import {
   MatGridListModule,
   MatListModule,
   MatProgressBarModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { SelfCareListComponent } from './self-care-list/self-care-list.component';
@@ -17,6 +18,8 @@ import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
 import { VictoryDialogComponent } from './victory-dialog/victory-dialog.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {LayoutModule} from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { VictoryDialogComponent } from './victory-dialog/victory-dialog.componen
     MatGridListModule,
     MatListModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    FlexLayoutModule,
+    MatTabsModule,
+    LayoutModule
   ],
   entryComponents: [
     VictoryDialogComponent
