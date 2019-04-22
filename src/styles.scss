@@ -25,6 +25,10 @@
 .container {
   margin-top: 72px;
   width: 100%;
+
+  .burnout {
+    margin-bottom: 64px;
+  }
 }
 
 .upgradeSection {
@@ -60,12 +64,13 @@
   width: 100%;
 }
 
-.mobile {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-}
+@media all and (max-width: 600px) {
+  .burnout-bar {
+    position: fixed;
+    top: 56px;
+  }
 
-.bottom-margin {
-  margin-bottom: 64px;
+  .container.burnout {
+    margin-top: 112px;
+  }
 }
