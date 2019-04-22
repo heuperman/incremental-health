@@ -6,7 +6,8 @@ import {Upgrade} from './interfaces/upgrade';
 import {Multipliers} from './interfaces/multipliers';
 import {UpgradeService} from './services/upgrade.service';
 import {VictoryDialogComponent} from './victory-dialog/victory-dialog.component';
-import { MatDialog } from '@angular/material';
+import {MatDialog} from '@angular/material';
+import {defaultValues} from './defaultValues';
 
 @Component({
   selector: 'app-root',
@@ -98,7 +99,7 @@ export class AppComponent implements OnInit {
 
   isVictoryAchieved() {
     console.log(this.gameData.stressReduction);
-    if (this.gameData.stressReduction >= this.gameDataService.baseStress && !this.gameData.victoryAchieved) {
+    if (this.gameData.stressReduction >= defaultValues.baseStress && !this.gameData.victoryAchieved) {
       this.gameData.victoryAchieved = true;
       this.showVictoryDialog();
     }

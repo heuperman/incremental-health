@@ -4,25 +4,13 @@ import { FactoryService } from './factory.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { GameData } from '../interfaces/game-data';
+import { defaultValues } from '../defaultValues';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameDataService {
-  private stressReduction: number;
-  private score: number;
-  public baseStress = 1;
-
   private gameData: GameData;
-  private defaultGameData: GameData = {
-    score: 0,
-    stressReduction: 0,
-    hoursAvailable: 4,
-    hoursWorkedPerFactory: [0, 0, 0, 0, 0],
-    upgradesPurchased: [],
-    stagesUnlocked: [],
-    victoryAchieved: false
-  };
 
   constructor(
     private factoryService: FactoryService,
@@ -34,7 +22,7 @@ export class GameDataService {
   }
 
   subtractFromScore(price: number) {
-    this.score -= price;
+    this.gameData.score -= price;
   }
 
   reduceStress(amount: number) {
@@ -42,7 +30,7 @@ export class GameDataService {
   }
 
   getStress(): number {
-    return this.baseStress - this.gameData.stressReduction;
+    return defaultValues.baseStress - this.gameData.stressReduction;
   }
 
   getStressReduction(): number {
@@ -85,7 +73,7 @@ export class GameDataService {
 
   getGameData(): GameData {
     const loadedData: GameData = JSON.parse(localStorage.getItem('IncrementalHealthGameData'));
-    this.gameData = loadedData ? loadedData : this.defaultGameData;
+    this.gameData = loadedData ? loadedData : defaultValues.gameData;
     return this.gameData;
   }
 
@@ -94,6 +82,6 @@ export class GameDataService {
   }
 
   resetGameData() {
-    this.gameData = this.defaultGameData;
+    this.gameData = defaultValues.gameData;
   }
 }
