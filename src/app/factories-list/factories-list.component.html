@@ -23,7 +23,7 @@
   </ng-container>
 
   <mat-card class="action-card">
-    <mat-card-subtitle *ngIf="isFirstStageUnlocked && !isBurnout(); else tooStressed">
+    <mat-card-subtitle *ngIf="isFirstStageUnlocked() && !isBurnout(); else tooStressed">
       Available hours: {{getHoursAvailable()}}
     </mat-card-subtitle>
   </mat-card>
