@@ -13,7 +13,6 @@ import { UpgradeService } from '../services/upgrade.service';
 })
 export class FactoriesListComponent implements OnInit {
   public factories: Factory[];
-  public isFirstStageUnlocked: boolean;
 
   @Input() burnout: boolean;
 
@@ -25,11 +24,18 @@ export class FactoriesListComponent implements OnInit {
 
   ngOnInit() {
     this.factories = this.factoryService.getFactories();
-    this.isFirstStageUnlocked = this.gameDataService.getStagesUnlocked().length > 0;
+  }
+
+  isFirstStageUnlocked(): boolean {
+    return this.gameDataService.getStagesUnlocked().length > 0;
+  }
+
+  isBurnout(): boolean {
+    return this.burnout;
   }
 
   stageUnlocked(factory: Factory): boolean {
-    if (this.gameDataService.getStressReduction() > factory.requiredStressReduction) {
+    if (this.gameDataService.getStressReduction() >= factory.requiredStressReduction) {
       this.gameDataService.saveUnlock(factory.title);
     }
     return this.gameDataService.isUnlocked(factory.title);
