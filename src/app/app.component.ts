@@ -15,9 +15,7 @@ import {defaultValues} from './defaultValues';
 })
 export class AppComponent implements OnInit {
   private gameData: GameData;
-  private burnout: boolean;
   public score: number;
-  public stress: number;
 
   constructor(
     private gameDataService: GameDataService,
@@ -40,13 +38,15 @@ export class AppComponent implements OnInit {
     setInterval(() => {
       this.gameData.score += this.calculateProduction() / 10;
       this.gameData.stressReduction -= this.calculateStressIncrease() / 10;
-      this.score = this.gameDataService.getScore();
-      this.stress = this.gameDataService.getStress();
-      this.burnout = this.gameData.stressReduction < 0;
       this.checkAvailability();
-      this.resetHoursWorkedIfBurnout();
       this.isVictoryAchieved();
     }, 100);
+  }
+
+  isBurnout(): boolean {
+    const burnout =  this.gameData.stressReduction < 0;
+    if (burnout) { this.resetHoursWorked(); }
+    return burnout;
   }
 
   calculateProduction(): number {
@@ -88,17 +88,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  resetHoursWorkedIfBurnout() {
-    if (this.burnout) {
-      const factories = this.factoryService.getFactories();
-      factories.forEach((factory, index) => {
-        this.gameData.hoursWorkedPerFactory[index] = 0;
-      });
-    }
+  resetHoursWorked() {
+    const factories = this.factoryService.getFactories();
+    factories.forEach((factory, index) => {
+      this.gameData.hoursWorkedPerFactory[index] = 0;
+    });
   }
 
   isVictoryAchieved() {
-    console.log(this.gameData.stressReduction);
     if (this.gameData.stressReduction >= defaultValues.baseStress && !this.gameData.victoryAchieved) {
       this.gameData.victoryAchieved = true;
       this.showVictoryDialog();
