@@ -7,7 +7,7 @@ import {Multipliers} from './interfaces/multipliers';
 import {UpgradeService} from './services/upgrade.service';
 import {VictoryDialogComponent} from './victory-dialog/victory-dialog.component';
 import {MatDialog} from '@angular/material';
-import {defaultValues} from './defaultValues';
+import {defaultValues} from './default-values';
 
 @Component({
   selector: 'app-root',
