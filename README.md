@@ -6,6 +6,8 @@ Incremental game about mental health. Can you get your stress levels down to zer
 
 ### [- play the game here -](https://heuperman.github.io/incremental-health/)
 
+![Screenshot of game](/src/assets/Screenshot.png?raw=true)
+
 ## Project goals
 
 The main intention for this project was to have an enjoyable way to get myself more familiar with TypeScript and the Angular framework. It was built using the [Angular CLI](https://cli.angular.io/) and styled using [Angular Material](https://material.angular.io/). [fxLayoutAlign](https://github.com/angular/flex-layout/wiki/fxLayoutAlign-API) was used for the responsive layout and the GitHub pages branch was published using [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages).  
