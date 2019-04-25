@@ -20,5 +20,3 @@ export class SelfCareService {
     return this.selfCareStages;
   }
 }
-
-

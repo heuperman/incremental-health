@@ -1,0 +1,38 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <mat-toolbar class="list-header" fxHide.xs>side hustles</mat-toolbar>
+
+  <ng-container *ngFor="let sideHustle of sideHustles">
+    <mat-card class="action-card" *ngIf="stageUnlocked(sideHustle)">
+      <mat-card-header>
+        <mat-card-title class="side-hustle-title">{{sideHustle.title}}</mat-card-title>
+        <mat-card-subtitle>hours worked: {{getHoursWorked(sideHustle)}}</mat-card-subtitle>
+        <mat-card-subtitle>moneys gained: £{{sideHustle.baseProduction * getHoursWorked(sideHustle) * getMultiplier(sideHustle)}}/s</mat-card-subtitle>
+        <mat-card-subtitle>stress increase: {{sideHustle.baseProduction * getHoursWorked(sideHustle)}}/s</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions class="card-actions">
+        <button mat-button
+                class="side-hustle-button"
+                [disabled]="isIncreaseDisabled()"
+                (click)="changeHours(sideHustle, 1)">work more</button>
+        <button mat-button
+                class="side-hustle-button"
+                [disabled]="isDecreaseDisabled(sideHustle)"
+                (click)="changeHours(sideHustle, -1)">work less</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <mat-card class="action-card">
+    <mat-card-subtitle *ngIf="isFirstStageUnlocked() && !isBurnout(); else tooStressed">
+      Available hours: {{getHoursAvailable()}}
+    </mat-card-subtitle>
+  </mat-card>
+
+  <ng-template #tooStressed>
+    <mat-card-subtitle>
+      too stressed to work right now
+    </mat-card-subtitle>
+  </ng-template>
+</div>
+
+

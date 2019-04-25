@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Factory } from '../interfaces/factory';
-import { FactoryService } from './factory.service';
+import { SideHustle } from '../interfaces/sideHustle';
+import { SideHustleService } from './side-hustle.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { GameData } from '../interfaces/game-data';
@@ -13,7 +13,7 @@ export class GameDataService {
   private gameData: GameData;
 
   constructor(
-    private factoryService: FactoryService,
+    private sideHustleService: SideHustleService,
     private upgradeService: UpgradeService
   ) { }
 
@@ -37,13 +37,13 @@ export class GameDataService {
     return this.gameData.stressReduction;
   }
 
-  getHoursWorked(factory: Factory): number {
-    const index = this.factoryService.getFactoryIndex(factory);
-    return this.gameData.hoursWorkedPerFactory[index];
+  getHoursWorked(sideHustle: SideHustle): number {
+    const index = this.sideHustleService.getSideHustleIndex(sideHustle);
+    return this.gameData.hoursWorkedPerSideHustle[index];
   }
 
   updateHoursWorked(index: number, hours: number) {
-    this.gameData.hoursWorkedPerFactory[index] += hours;
+    this.gameData.hoursWorkedPerSideHustle[index] += hours;
   }
 
   getUpgradesPurchased(): number[] {
@@ -56,7 +56,7 @@ export class GameDataService {
   }
 
   getHoursAvailable(): number {
-    return this.gameData.hoursAvailable - this.gameData.hoursWorkedPerFactory.reduce((a, b) => a + b);
+    return this.gameData.hoursAvailable - this.gameData.hoursWorkedPerSideHustle.reduce((a, b) => a + b);
   }
 
   getStagesUnlocked() {

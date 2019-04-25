@@ -4,7 +4,7 @@
 
   <div class="container" [class.burnout]="isBurnout()" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start" fxHide.xs>
     <app-selfcare-list></app-selfcare-list>
-    <app-factories-list [burnout]="isBurnout()"></app-factories-list>
+    <app-side-hustles-list [burnout]="isBurnout()"></app-side-hustles-list>
     <app-upgrades-list></app-upgrades-list>
   </div>
 
@@ -13,7 +13,7 @@
       <app-selfcare-list></app-selfcare-list>
     </mat-tab>
     <mat-tab label="side-hustles">
-      <app-factories-list [burnout]="isBurnout()"></app-factories-list>
+      <app-side-hustles-list [burnout]="isBurnout()"></app-side-hustles-list>
     </mat-tab>
     <mat-tab label="upgrades">
       <app-upgrades-list></app-upgrades-list>

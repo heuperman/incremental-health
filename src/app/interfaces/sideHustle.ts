@@ -1,4 +1,4 @@
-export interface Factory {
+export interface SideHustle {
   title: string;
   baseProduction: number;
   requiredStressReduction: number;

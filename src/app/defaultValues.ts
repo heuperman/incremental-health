@@ -4,7 +4,7 @@ export const defaultValues = {
     score: 0,
     stressReduction: 0,
     hoursAvailable: 4,
-    hoursWorkedPerFactory: [0, 0, 0, 0, 0],
+    hoursWorkedPerSideHustle: [0, 0, 0, 0, 0],
     upgradesPurchased: [],
     stagesUnlocked: [],
     victoryAchieved: false
