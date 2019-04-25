@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 import { SelfCareListComponent } from './self-care-list/self-care-list.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
-import { FactoriesListComponent } from './factories-list/factories-list.component';
+import { SideHustlesListComponent } from './side-hustles-list/side-hustles-list.component';
 import { UpgradesListComponent } from './upgrades-list/upgrades-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BurnoutBarComponent } from './burnout-bar/burnout-bar.component';
@@ -26,7 +26,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     AppComponent,
     SelfCareListComponent,
     TitleBarComponent,
-    FactoriesListComponent,
+    SideHustlesListComponent,
     UpgradesListComponent,
     BurnoutBarComponent,
     VictoryDialogComponent,

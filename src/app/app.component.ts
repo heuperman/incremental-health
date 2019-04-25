@@ -1,7 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GameDataService} from './services/game-data.service';
 import {GameData} from './interfaces/game-data';
-import {FactoryService} from './services/factory.service';
+import {SideHustleService} from './services/side-hustle.service';
 import {Upgrade} from './interfaces/upgrade';
 import {Multipliers} from './interfaces/multipliers';
 import {UpgradeService} from './services/upgrade.service';
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private gameDataService: GameDataService,
-    private factoryService: FactoryService,
+    private sideHustleService: SideHustleService,
     private upgradeService: UpgradeService,
     public dialog: MatDialog
   ) {}
@@ -59,29 +59,29 @@ export class AppComponent implements OnInit {
 
   calculateProduction(): number {
     let production = 0;
-    for (const factory of this.factoryService.getFactories()) {
-      const index = this.factoryService.getFactoryIndex(factory);
-      production += factory.baseProduction
+    for (const sideHustle of this.sideHustleService.getSideHustles()) {
+      const index = this.sideHustleService.getSideHustleIndex(sideHustle);
+      production += sideHustle.baseProduction
         * this.getMultiplier(index)
-        * this.gameData.hoursWorkedPerFactory[index];
+        * this.gameData.hoursWorkedPerSideHustle[index];
     }
     return production;
   }
 
-  getMultiplier(factoryIndex: number): number {
+  getMultiplier(sideHustleIndex: number): number {
     const upgradesToApply: Upgrade[] = [];
     for (const upgradeId of this.gameData.upgradesPurchased) {
       upgradesToApply.push(this.upgradeService.getUpgrades().find(upgrade => upgrade.id === upgradeId));
     }
-    const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === factoryIndex) : [];
+    const upgrades = upgradesToApply ? upgradesToApply.filter(upgrade => upgrade.target === sideHustleIndex) : [];
     return Multipliers.base * (upgrades.length * 2) || Multipliers.base;
   }
 
   calculateStressIncrease(): number {
     let stressIncrease = 0;
-    const factories = this.factoryService.getFactories();
-    factories.forEach((factory, index) => {
-      stressIncrease += factory.baseProduction * this.gameData.hoursWorkedPerFactory[index];
+    const sideHustles = this.sideHustleService.getSideHustles();
+    sideHustles.forEach((sideHustle, index) => {
+      stressIncrease += sideHustle.baseProduction * this.gameData.hoursWorkedPerSideHustle[index];
     });
     return stressIncrease;
   }
@@ -97,9 +97,9 @@ export class AppComponent implements OnInit {
   }
 
   resetHoursWorked() {
-    const factories = this.factoryService.getFactories();
-    factories.forEach((factory, index) => {
-      this.gameData.hoursWorkedPerFactory[index] = 0;
+    const sideHustles = this.sideHustleService.getSideHustles();
+    sideHustles.forEach((sideHustle, index) => {
+      this.gameData.hoursWorkedPerSideHustle[index] = 0;
     });
   }
 

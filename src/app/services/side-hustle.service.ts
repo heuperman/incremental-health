@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Factory } from '../interfaces/factory';
+import { SideHustle } from '../interfaces/sideHustle';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FactoryService {
+export class SideHustleService {
 
   constructor() { }
 
-  factories: Factory[] = [
+  sideHustles: SideHustle[] = [
     {title: 'dog walking', baseProduction: 1, requiredStressReduction: 10},
     {title: 'babysitting', baseProduction: 10, requiredStressReduction: 100},
     {title: 'take-away delivery', baseProduction: 100, requiredStressReduction: 1000},
@@ -16,11 +16,11 @@ export class FactoryService {
     {title: 'crypto trading', baseProduction: 1E4, requiredStressReduction: 1E5},
   ];
 
-  getFactories(): Factory[] {
-    return this.factories;
+  getSideHustles(): SideHustle[] {
+    return this.sideHustles;
   }
 
-  getFactoryIndex(factory: Factory): number {
-    return this.factories.indexOf(factory);
+  getSideHustleIndex(sideHustle: SideHustle): number {
+    return this.sideHustles.indexOf(sideHustle);
   }
 }
