@@ -15,9 +15,9 @@ export class UpgradeService {
     {title: 'spa membership', description: 'sign up for your local pamper palace', id: 4, price: 1E4, requiredFunds: 5000},
     {title: 'more leashes', description: 'double income from dog walking', id: 5, target: 0, price: 50, requiredFunds: 25},
     {title: 'twins only policy', description: 'double income from babysitting', id: 6 , target: 1, price: 500, requiredFunds: 250},
-    {title: 'upgrade to e-bike', description: 'double income from take-away delivery', id: 7, target: 2, price: 5000, requiredFunds: 2500},
-    {title: 'drive a luxury car', description: 'double income from uber driving', id: 8, target: 3, price: 5E4, requiredFunds: 25000},
-    {title: 'install twin ovens', description: 'double income from home baking', id: 9, target: 4, price: 5E5, requiredFunds: 25E4}
+    {title: 'electric bike', description: 'double income from take-away delivery', id: 7, target: 2, price: 5000, requiredFunds: 2500},
+    {title: 'dual ovens', description: 'double income from home baking', id: 8, target: 3, price: 5E4, requiredFunds: 25000},
+    {title: 'trading bots', description: 'double income from crypto trading', id: 9, target: 4, price: 5E5, requiredFunds: 25E4}
   ];
   availableUpgrades: Upgrade[] = [];
 
