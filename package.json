@@ -1,11 +1,11 @@
 {
-  "name": "incremental",
-  "version": "0.0.0",
+  "name": "incremental-health",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "ghpages": "ng build --prod --base-href '/incremental/' && npx angular-cli-ghpages --dir=dist/incremental",
+    "ghpages": "ng build --prod --base-href '/incremental-health/' && npx angular-cli-ghpages --dir=dist/incremental-health",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
