@@ -9,7 +9,7 @@ export class SideHustleService {
   constructor() { }
 
   sideHustles: SideHustle[] = [
-    {title: 'dog walking', baseProduction: 1, requiredStressReduction: 10},
+    {title: 'dog walking', baseProduction: 1, requiredStressReduction: 5},
     {title: 'babysitting', baseProduction: 10, requiredStressReduction: 100},
     {title: 'take-away delivery', baseProduction: 100, requiredStressReduction: 1000},
     {title: 'home baking', baseProduction: 1000, requiredStressReduction: 1E4},
