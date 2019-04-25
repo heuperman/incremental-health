@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SideHustle } from '../interfaces/sideHustle';
+import { SideHustle } from '../interfaces/side-hustle';
 
 @Injectable({
   providedIn: 'root'

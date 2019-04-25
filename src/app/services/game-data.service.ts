@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SideHustle } from '../interfaces/sideHustle';
+import { SideHustle } from '../interfaces/side-hustle';
 import { SideHustleService } from './side-hustle.service';
 import { Upgrade } from '../interfaces/upgrade';
 import { UpgradeService } from './upgrade.service';
 import { GameData } from '../interfaces/game-data';
-import { defaultValues } from '../defaultValues';
+import { defaultValues } from '../default-values';
 
 @Injectable({
   providedIn: 'root'

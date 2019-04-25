@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SideHustle } from '../interfaces/sideHustle';
+import { SideHustle } from '../interfaces/side-hustle';
 import { SideHustleService } from '../services/side-hustle.service';
 import { GameDataService } from '../services/game-data.service';
 import { Upgrade } from '../interfaces/upgrade';
