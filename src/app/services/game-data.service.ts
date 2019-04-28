@@ -73,7 +73,7 @@ export class GameDataService {
 
   getGameData(): GameData {
     const loadedData: GameData = JSON.parse(localStorage.getItem('IncrementalHealthGameData'));
-    this.gameData = loadedData ? loadedData : defaultValues.gameData;
+    this.gameData = loadedData ? loadedData : {...defaultValues.gameData};
     return this.gameData;
   }
 
@@ -81,7 +81,8 @@ export class GameDataService {
     localStorage.setItem('IncrementalHealthGameData', JSON.stringify(gameData));
   }
 
-  resetGameData() {
-    this.gameData = defaultValues.gameData;
+  resetGameData(): GameData {
+    this.gameData = {...defaultValues.gameData};
+    return this.gameData;
   }
 }
