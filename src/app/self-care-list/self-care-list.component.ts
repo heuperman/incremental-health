@@ -10,6 +10,8 @@ import { SelfCare } from '../interfaces/self-care';
 export class SelfCareListComponent implements OnInit {
   selfCareStages: SelfCare[];
   timers: Record<string, number>;
+  timeOut = 10;
+  increment = 100;
 
   constructor(
     public gameDataService: GameDataService,
@@ -22,6 +24,10 @@ export class SelfCareListComponent implements OnInit {
     for (const stage of this.selfCareStages) {
       this.timers[stage.title] = 0;
     }
+    if (navigator.userAgent.search('Firefox') > -1) {
+      this.timeOut = 100;
+      this.increment = 10;
+    }
   }
 
   stageUnlocked(stage: SelfCare): boolean {
@@ -30,8 +36,8 @@ export class SelfCareListComponent implements OnInit {
 
   startCare(stage: SelfCare) {
     const interval = window.setInterval(() => {
-      this.timers[stage.title] < 100 ? this.timers[stage.title] += stage.timerSpeed / 100 : this.finishCare(stage, interval);
-      }, 10);
+      this.timers[stage.title] < 100 ? this.timers[stage.title] += stage.timerSpeed / this.increment : this.finishCare(stage, interval);
+      }, this.timeOut);
   }
 
   finishCare(stage: SelfCare, interval: number) {
