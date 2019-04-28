@@ -15,7 +15,6 @@ import {defaultValues} from './default-values';
 })
 export class AppComponent implements OnInit {
   private gameData: GameData;
-  public score: number;
 
   constructor(
     private gameDataService: GameDataService,
@@ -104,8 +103,7 @@ export class AppComponent implements OnInit {
   }
 
   isVictoryAchieved() {
-    if (this.gameData.stressReduction >= defaultValues.baseStress && !this.gameData.victoryAchieved) {
-      this.gameData.victoryAchieved = true;
+    if (this.gameData.stressReduction >= defaultValues.baseStress && !this.gameData.victoryAchieved && !this.dialog.openDialogs.length) {
       this.showVictoryDialog();
     }
   }
@@ -114,10 +112,15 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(VictoryDialogComponent, {
       height: 'auto',
       width: 'auto',
-      autoFocus: false
+      autoFocus: false,
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe(reset => {
-      if (reset) { this.gameDataService.resetGameData(); }
+      if (reset) {
+        this.gameData = this.gameDataService.resetGameData();
+      } else {
+        this.gameData.victoryAchieved = true;
+      }
     });
   }
 }
