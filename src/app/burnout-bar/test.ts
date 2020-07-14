@@ -1,9 +1,9 @@
-import { GameData } from "../interfaces/game-data";
-import { SideHustleService } from "../services/side-hustle.service";
-import { UpgradeService } from "../services/upgrade.service";
-import { defaultValues } from "../default-values";
-import { SideHustle } from "../interfaces/side-hustle";
-import { Upgrade } from "../interfaces/upgrade";
+import { GameData } from '../interfaces/game-data';
+import { SideHustleService } from '../services/side-hustle.service';
+import { UpgradeService } from '../services/upgrade.service';
+import { defaultValues } from '../default-values';
+import { SideHustle } from '../interfaces/side-hustle';
+import { Upgrade } from '../interfaces/upgrade';
 
 class Test {
   private gameData: GameData;
@@ -37,12 +37,12 @@ class Test {
   addUpgradePurchased(upgrade: Upgrade) {
     this.gameData.upgradesPurchased.push(upgrade.id);
     this.upgradeService.removeFromAvailableUpgrades(upgrade);
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== 'production') {
       if (this.gameData === this.gameData[0]) {
         if (window.document) {
           switch (upgrade.title) {
-            case "foo":
-              console.log("foo");
+            case 'foo':
+              console.log('foo');
               break;
           }
         }
@@ -73,12 +73,12 @@ class Test {
   baddUpgradePurchased(upgrade: Upgrade) {
     this.gameData.upgradesPurchased.push(upgrade.id);
     this.upgradeService.removeFromAvailableUpgrades(upgrade);
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== 'production') {
       if (this.gameData === this.gameData[0]) {
         if (window.document) {
           switch (upgrade.title) {
-            case "foo":
-              console.log("foo");
+            case 'foo':
+              console.log('foo');
               break;
           }
         }
